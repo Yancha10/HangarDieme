@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0B1824">
+<meta name="theme-color" content="#E9EEF1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1622" media="(prefers-color-scheme: dark)">
 <meta name="description" content="Maquette 3D, plan coté, façades et coupes du hangar 24 × 18 m.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -11,7 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Hangar 3D">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Hangar 24 × 18 m, état actuel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -741,7 +742,7 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
 var NS="http://www.w3.org/2000/svg";
 
 /* correctif iOS : en mode application, la zone d'affichage est raccourcie de la hauteur de la barre d'état */
-function vfix(){var g=0;try{var st=window.navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;
+function vfix(){var g=0;if(true){document.documentElement.style.setProperty("--vfix","0px");return;}try{var st=window.navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;
   if(st&&/iP(hone|od|ad)/.test(navigator.userAgent)){var land=window.innerWidth>window.innerHeight,sh=land?Math.min(screen.width,screen.height):Math.max(screen.width,screen.height);
     g=Math.round(sh-window.innerHeight);if(g<0||g>90)g=0;}}catch(e){}
   document.documentElement.style.setProperty("--vfix",g+"px");}
@@ -1137,7 +1138,7 @@ function buildDoc(){var d=document.getElementById("doc");function tr(c,h){return
   "<h3>"+esc(L("Dimensions générales"))+"</h3>"+tbl(["Élément","Valeur","Source"],[["Longueur hors tout","#24,00 m","!Fourni"],["Largeur hors tout","#18,00 m","!Fourni"],["Hauteur à l’égout","#4,00 m","!Fourni"],["Hauteur au faîtage (pignons)","#5,00 m","!Fourni"],["Pente des pignons","#11,1 %","Calculé"],["Épaisseur des murs","#0,20 m","Estimé"]])+
   "<h3>"+esc(L("Ouvertures"))+"</h3>"+tbl(["Repère","Emplacement","Dimensions","Allège","Nombre"],[["*Entrée","Façade d’entrée, au centre","#5,00 × 3,50 m","#0,00 m","#1"],["*F1","Façade d’entrée","#1,30 × 0,60 m","#2,90 m","#2"],["*F2","Côté droit, partie arrière","#0,60 × 0,60 m","#3,10 m","#2"],["*F3","Local 2, face vers le hangar","#0,50 × 0,50 m","#1,20 m","#1"],["*F4","Local 2, face arrière","#0,80 × 0,80 m","#1,10 m","#1"],["*P1","Passage du local 1","#0,75 × 2,10 m","#0,00 m","#1"],["*P2","Porte du local 2","#0,90 × 2,10 m","#0,00 m","#1"]])+
   "<h3>"+esc(L("Locaux"))+"</h3>"+tbl(["Local","Intérieur","Surface","Hauteur des murs"],[["*Local 1","#2,85 × 2,20 m","#6,3 m²","#2,80 m"],["*Local 2","#3,85 × 3,70 m","#14,2 m²","#2,80 m"]])+
-  "<h3>"+esc(L("Précision du relevé"))+"</h3><p>"+esc(L("P_PREC1"))+"</p><p>"+esc(L("P_PREC2"))+"</p><p style=\"color:var(--muted);font-size:13px\">Version 11, 28.10.2026</p>";}
+  "<h3>"+esc(L("Précision du relevé"))+"</h3><p>"+esc(L("P_PREC1"))+"</p><p>"+esc(L("P_PREC2"))+"</p><p style=\"color:var(--muted);font-size:13px\">Version 12, 28.10.2026</p>";}
 buildDoc();
 
 /* ---------- styles de plan ---------- */
