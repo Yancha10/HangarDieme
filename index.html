@@ -274,19 +274,21 @@ html:root[data-ps="minimal"] .pp-wall,html:root[data-ps="minimal"] .pp-part{fill
 html:root[data-ps="minimal"] .pp-glass{stroke-width:1}
 html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
 #printArea{display:none}
+.pfmt{display:grid;gap:8px}
+.pfmt label{display:grid;gap:5px;font-size:13px;color:var(--muted)}
+.pfmt select{font:inherit;font-size:15px;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:44px;appearance:auto}
 @media print{
-  @page{size:A3 landscape;margin:9mm}
   html,body{height:auto!important;overflow:visible!important;background:#fff!important}
   :root{padding:0!important}
   .app,.tip,.lightbox,.backdrop{display:none!important}
   #printArea{display:block}
-  .pa-page{break-after:page;page-break-after:always;height:276mm;display:flex;flex-direction:column;gap:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+  .pa-page{break-after:page;page-break-after:always;height:var(--ph,276mm);display:flex;flex-direction:column;gap:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
   .pa-page:last-child{break-after:auto;page-break-after:auto}
-  .pa-h{display:flex;justify-content:space-between;gap:10mm;font:600 10pt "Archivo",sans-serif;border-bottom:.4mm solid #11263A;padding-bottom:2mm;color:#11263A}
+  .pa-h{display:flex;justify-content:space-between;gap:10mm;font:600 var(--pfs,10pt) "Archivo",sans-serif;border-bottom:.4mm solid #11263A;padding-bottom:2mm;color:#11263A}
   .pa-h span{font-weight:400}
   .pa-svg{flex:1;width:100%;height:0;min-height:0;display:block}
   .pa-fig{flex:1;margin:0;display:flex;flex-direction:column;min-height:0}
-  .pa-fig figcaption{font:600 11pt "Archivo",sans-serif;padding-top:1.5mm;color:#11263A}
+  .pa-fig figcaption{font:600 var(--pfs2,11pt) "Archivo",sans-serif;padding-top:1.5mm;color:#11263A}
 }
 /* mobile */
 @media (max-width:899px){
@@ -401,9 +403,10 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
       <label class="tgl"><span data-t>Traits de coupe</span><input type="checkbox" data-layer="sections" checked></label>
       <label class="tgl"><span data-t>Cartouche</span><input type="checkbox" data-layer="cart" checked></label>
       <div class="ph" data-t>Impression</div>
-      <button class="btn" data-print="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer le plan</span></button>
+      <div class="pfmt"><label><span data-t>Format du papier</span><select class="psize"><option value="A4">A4 (210 × 297)</option><option value="A3" selected>A3 (297 × 420)</option><option value="A2">A2 (420 × 594)</option><option value="A1">A1 (594 × 841)</option><option value="A0">A0 (841 × 1189)</option><option value="Letter">Letter (216 × 279)</option><option value="Legal">Legal (216 × 356)</option><option value="Tabloid">Tabloid (279 × 432)</option></select></label><div class="seg2 porient"><button data-o="landscape" aria-pressed="true" data-t>Paysage</button><button data-o="portrait" aria-pressed="false" data-t>Portrait</button></div></div>
+      <button class="btn" data-print="plan" style="margin-top:10px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer le plan</span></button>
       <button class="btn" data-print="all" style="margin-top:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer tous les plans</span></button>
-      <div class="note" data-t>Format A3 paysage. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.</div>
+      <div class="note" data-t>Choisissez le format et l’orientation avant d’imprimer. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.</div>
       <div class="ph" data-t>Légende</div>
       <div class="legend">
         <span><svg viewBox="0 0 34 16"><defs><pattern id="lgh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" class="hb"/><line x1="0" y1="0" x2="0" y2="5" class="hl"/></pattern></defs><rect x="1" y="3" width="32" height="10" fill="url(#lgh)" stroke="currentColor"/></svg><span data-t>Mur en parpaings, 0,20 m</span></span>
@@ -421,9 +424,10 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
       <div class="ph" data-t>Planches</div>
       <div class="toc" id="toc"></div>
       <div class="ph" data-t>Impression</div>
-      <button class="btn" data-print="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer le plan</span></button>
+      <div class="pfmt"><label><span data-t>Format du papier</span><select class="psize"><option value="A4">A4 (210 × 297)</option><option value="A3" selected>A3 (297 × 420)</option><option value="A2">A2 (420 × 594)</option><option value="A1">A1 (594 × 841)</option><option value="A0">A0 (841 × 1189)</option><option value="Letter">Letter (216 × 279)</option><option value="Legal">Legal (216 × 356)</option><option value="Tabloid">Tabloid (279 × 432)</option></select></label><div class="seg2 porient"><button data-o="landscape" aria-pressed="true" data-t>Paysage</button><button data-o="portrait" aria-pressed="false" data-t>Portrait</button></div></div>
+      <button class="btn" data-print="plan" style="margin-top:10px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer le plan</span></button>
       <button class="btn" data-print="all" style="margin-top:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer tous les plans</span></button>
-      <div class="note" data-t>Format A3 paysage. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.</div>
+      <div class="note" data-t>Choisissez le format et l’orientation avant d’imprimer. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.</div>
       <div class="note" data-t>Cliquez sur une planche pour l’ouvrir en grand et zoomer dans les détails.</div>
     </section>
 
@@ -534,7 +538,8 @@ var WO={
 "Passage du local 1":"Buntu néeg 1","Porte du local 2":"Buntu néeg 2","Surface libre du hangar":"Bérab bu wéy ci hangar bi","Volume intérieur":"Bérab biir",
 "Relevé de l’état actuel : murs porteurs en parpaings avec ossature en béton armé, pignons sur les façades de 18 m, dallage béton coulé et deux locaux adossés près de l’entrée. La toiture n’est pas encore posée.":"Natt yi ci fi tabax bi tollu tey: miir yu bloog ak beton armé, ñaari pignon ci kanam yu 18 m, suuf beton ak ñaari néeg yu taq ci bunt bi. Kaw kër gi amagul.",
 "P_PREC1":"Natt yu mag yi (24,00 × 18,00 m, 4,00 m ci cat miir, 5,00 m ci kaw), ñoo ko joxe ci bérab bi. Bunt yi, palanteer yi, ponto yi ak ñaari néeg yi, ñu natt leen ci nataal, te mën nañu juum ba ±0,30 m. Bu baax nga natt leen ak meetar balaa nga leen jëfandikoo ngir devi walla liggéey.",
-"Impression":"Imprime","Imprimer le plan":"Imprime plaŋ bi","Imprimer tous les plans":"Imprime plaŋ yépp","Élévations et coupes":"Kanam ak dog",
+"Impression":"Imprime","Format du papier":"Formatu kayit bi","Paysage":"Tëdd","Portrait":"Taxaw",
+"Choisissez le format et l’orientation avant d’imprimer. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.":"Tànnal formatu kayit bi ak fan la jëm balaa ngay imprime. Ngir am PDF, tànnal « Enregistrer en PDF » ci palanteeru imprime bi.","Imprimer le plan":"Imprime plaŋ bi","Imprimer tous les plans":"Imprime plaŋ yépp","Élévations et coupes":"Kanam ak dog",
 "Format A3 paysage. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.":"Format A3 bu tëdd. Ngir am PDF, tànnal « Enregistrer en PDF » ci palanteeru imprime bi.",
 "P_PREC2":"Hangar bi amagul kaw. Weñ yu ñuy xaar ñoo génn ci kawu ponto yi. Néeg yi amuñu dàll."
 };
@@ -888,14 +893,27 @@ setLang(LANG,true);
 
 /* ---------- impression ---------- */
 var printArea=document.getElementById("printArea");
-function preparePrint(mode){printArea.innerHTML="";
+function preparePrint(mode){printArea.innerHTML="";applyPF();
   function page(title,nodes,cls){var d=document.createElement("section");d.className="pa-page "+(cls||"");var h=document.createElement("header");h.className="pa-h";
     h.innerHTML="<b>Hangar 24 × 18 m</b><span>"+esc(title)+"</span><span>27.10.2026</span>";d.appendChild(h);nodes.forEach(function(n){d.appendChild(n);});printArea.appendChild(d);}
   function clone(svg,vb){var c=svg.cloneNode(true);c.removeAttribute("id");c.removeAttribute("style");if(vb)c.setAttribute("viewBox",vb);c.classList.add("pa-svg");c.querySelectorAll(".sel").forEach(function(n){n.classList.remove("sel");});return c;}
   page(L("Plan du rez-de-chaussée, état actuel"),[clone(plan,"0 0 860 1200")],"pa-plan");
   if(mode==="all"){var list=SHEETS.map(function(x){return {t:L(x.t),svg:document.querySelector("#"+x.id+" svg")};});
-    for(var i=0;i<list.length;i+=2){page(L("Élévations et coupes"),list.slice(i,i+2).map(function(x){var f=document.createElement("figure");f.className="pa-fig";f.appendChild(clone(x.svg));
+    var per=PF.or==="portrait"?3:2;for(var i=0;i<list.length;i+=per){page(L("Élévations et coupes"),list.slice(i,i+per).map(function(x){var f=document.createElement("figure");f.className="pa-fig";f.appendChild(clone(x.svg));
       var c=document.createElement("figcaption");c.textContent=x.t;f.appendChild(c);return f;}));}}}
+
+var PAPER={A4:[210,297],A3:[297,420],A2:[420,594],A1:[594,841],A0:[841,1189],Letter:[216,279],Legal:[216,356],Tabloid:[279,432]};
+var PF={size:"A3",or:"landscape"};try{var sv=JSON.parse(localStorage.getItem("hangar-print")||"null");if(sv&&PAPER[sv.size])PF=sv;}catch(e){}
+var pageStyle=document.createElement("style");document.head.appendChild(pageStyle);
+function applyPF(){var d=PAPER[PF.size],land=PF.or==="landscape",w=land?d[1]:d[0],h=land?d[0]:d[1],m=Math.round(Math.max(8,Math.min(20,d[0]*0.035)));
+  pageStyle.textContent="@media print{@page{size:"+w+"mm "+h+"mm;margin:"+m+"mm}}";
+  var k=Math.max(0.75,Math.sqrt(d[0]/297));printArea.style.setProperty("--ph",(h-2*m-2)+"mm");printArea.style.setProperty("--pfs",(10*k).toFixed(1)+"pt");printArea.style.setProperty("--pfs2",(11*k).toFixed(1)+"pt");
+  document.querySelectorAll(".psize").forEach(function(x){x.value=PF.size;});
+  document.querySelectorAll(".porient button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.o===PF.or?"true":"false");});
+  try{localStorage.setItem("hangar-print",JSON.stringify(PF));}catch(e){}}
+document.querySelectorAll(".psize").forEach(function(x){x.onchange=function(){PF.size=x.value;applyPF();};});
+document.querySelectorAll(".porient button").forEach(function(b){b.onclick=function(){PF.or=b.dataset.o;applyPF();};});
+applyPF();
 function doPrint(mode){closeSheet();preparePrint(mode);setTimeout(function(){window.print();},60);}
 document.querySelectorAll("[data-print]").forEach(function(b){b.onclick=function(){doPrint(b.dataset.print);};});
 document.getElementById("zprint").onclick=function(){doPrint("plan");};
