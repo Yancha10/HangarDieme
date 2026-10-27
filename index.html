@@ -533,6 +533,21 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
   .tabs button svg{width:20px;height:20px}
   .toast{display:none}
 }
+
+@media (max-width:899px){
+  :root{--tb:calc(env(safe-area-inset-bottom,0px) + 82px - var(--vfix,0px))}
+  .stage{bottom:calc(-1 * var(--vfix,0px))}
+  .nav{bottom:calc(env(safe-area-inset-bottom,0px) + 10px - var(--vfix,0px))}
+  .side{bottom:calc(-1 * var(--vfix,0px))}
+  .backdrop{bottom:calc(-1 * var(--vfix,0px))}
+  .lightbox{bottom:calc(-1 * var(--vfix,0px))}
+  .lightbox .lbnav{bottom:calc(18px + env(safe-area-inset-bottom,0px) - var(--vfix,0px))}
+  html,body{background:#C9A777}
+}
+@media (max-width:899px) and (max-height:500px){
+  :root{--tb:calc(env(safe-area-inset-bottom,0px) + 66px - var(--vfix,0px))}
+  .nav{bottom:calc(env(safe-area-inset-bottom,0px) + 8px - var(--vfix,0px))}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -698,6 +713,13 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
 (function(){
 "use strict";
 var NS="http://www.w3.org/2000/svg";
+
+/* correctif iOS : en mode application, la zone d'affichage est raccourcie de la hauteur de la barre d'état */
+function vfix(){var g=0;try{var st=window.navigator.standalone===true||matchMedia("(display-mode: standalone)").matches;
+  if(st&&/iP(hone|od|ad)/.test(navigator.userAgent)){var land=window.innerWidth>window.innerHeight,sh=land?Math.min(screen.width,screen.height):Math.max(screen.width,screen.height);
+    g=Math.round(sh-window.innerHeight);if(g<0||g>90)g=0;}}catch(e){}
+  document.documentElement.style.setProperty("--vfix",g+"px");}
+vfix();window.addEventListener("resize",vfix);window.addEventListener("orientationchange",function(){setTimeout(vfix,300);});
 var app=document.getElementById("app");
 var mobileQ=matchMedia("(max-width: 899px)");
 var X_ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>';
@@ -1089,7 +1111,7 @@ function buildDoc(){var d=document.getElementById("doc");function tr(c,h){return
   "<h3>"+esc(L("Dimensions générales"))+"</h3>"+tbl(["Élément","Valeur","Source"],[["Longueur hors tout","#24,00 m","!Fourni"],["Largeur hors tout","#18,00 m","!Fourni"],["Hauteur à l’égout","#4,00 m","!Fourni"],["Hauteur au faîtage (pignons)","#5,00 m","!Fourni"],["Pente des pignons","#11,1 %","Calculé"],["Épaisseur des murs","#0,20 m","Estimé"]])+
   "<h3>"+esc(L("Ouvertures"))+"</h3>"+tbl(["Repère","Emplacement","Dimensions","Allège","Nombre"],[["*Entrée","Façade d’entrée, au centre","#5,00 × 3,50 m","#0,00 m","#1"],["*F1","Façade d’entrée","#1,30 × 0,60 m","#2,90 m","#2"],["*F2","Côté droit, partie arrière","#0,60 × 0,60 m","#3,10 m","#2"],["*F3","Local 2, face vers le hangar","#0,50 × 0,50 m","#1,20 m","#1"],["*F4","Local 2, face arrière","#0,80 × 0,80 m","#1,10 m","#1"],["*P1","Passage du local 1","#0,75 × 2,10 m","#0,00 m","#1"],["*P2","Porte du local 2","#0,90 × 2,10 m","#0,00 m","#1"]])+
   "<h3>"+esc(L("Locaux"))+"</h3>"+tbl(["Local","Intérieur","Surface","Hauteur des murs"],[["*Local 1","#2,85 × 2,20 m","#6,3 m²","#2,80 m"],["*Local 2","#3,85 × 3,70 m","#14,2 m²","#2,80 m"]])+
-  "<h3>"+esc(L("Précision du relevé"))+"</h3><p>"+esc(L("P_PREC1"))+"</p><p>"+esc(L("P_PREC2"))+"</p><p style=\"color:var(--muted);font-size:13px\">Version 9, 28.10.2026</p>";}
+  "<h3>"+esc(L("Précision du relevé"))+"</h3><p>"+esc(L("P_PREC1"))+"</p><p>"+esc(L("P_PREC2"))+"</p><p style=\"color:var(--muted);font-size:13px\">Version 10, 28.10.2026</p>";}
 buildDoc();
 
 /* ---------- styles de plan ---------- */
