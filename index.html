@@ -419,6 +419,33 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
   .card{max-height:80%;left:auto!important;width:min(420px,60%)!important;right:0;border-radius:22px 0 0 0}
   #mtoolE{bottom:calc(60px + env(safe-area-inset-bottom,0px))}
 }
+
+@media (max-width:899px){
+  :root{--tb:calc(62px + env(safe-area-inset-bottom,0px));--bar:rgba(250,251,252,.72);--barline:rgba(17,38,58,.14);padding-bottom:0}
+  :root[data-theme="dark"]{--bar:rgba(13,28,42,.7);--barline:rgba(255,255,255,.1)}
+  .app{grid-template-rows:54px 1fr;grid-template-areas:"brand" "stage"}
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;border:0;border-top:.5px solid var(--barline);background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);padding:5px 6px env(safe-area-inset-bottom,0px)}
+  .tabs button{min-height:54px;font-size:10.5px;font-weight:560;gap:3px;padding:5px 2px 4px;color:var(--muted);letter-spacing:.01em}
+  .tabs button svg{width:25px;height:25px}
+  .tabs button[aria-selected="true"]{color:var(--accent);background:transparent}
+  .tabs button[aria-selected="true"]::before{content:none}
+  .tabs button[aria-selected="true"] svg{color:var(--accent)}
+  .chips{bottom:calc(var(--tb) + 10px)}
+  #mtoolP{bottom:calc(var(--tb) + 12px)}
+  #mtoolE{bottom:calc(var(--tb) + 12px)}
+  .card{left:8px!important;right:8px;bottom:calc(var(--tb) + 8px)!important;border-radius:22px;border:1px solid var(--line);max-height:calc(100% - var(--tb) - 90px);padding-bottom:16px}
+  #v-elev{padding-bottom:calc(var(--tb) + 86px)}
+  #v-info{padding-bottom:calc(var(--tb) + 30px)}
+  .backdrop{z-index:39}
+}
+@media (max-width:899px) and (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bar:rgba(13,28,42,.7);--barline:rgba(255,255,255,.1)}}
+@media (max-width:899px) and (max-height:500px){
+  :root{--tb:calc(48px + env(safe-area-inset-bottom,0px))}
+  .app{grid-template-rows:1fr;grid-template-areas:"stage"}
+  .tabs button{min-height:40px;flex-direction:row;font-size:12px;gap:7px}
+  .tabs button svg{width:21px;height:21px}
+  .card{left:auto!important;width:min(420px,60%)!important}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
