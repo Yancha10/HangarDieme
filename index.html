@@ -273,6 +273,21 @@ html:root[data-ps="minimal"]{--paper:#FFFFFF;--p-ink:#1A1A1A;--p-line:#ECECEC;--
 html:root[data-ps="minimal"] .pp-wall,html:root[data-ps="minimal"] .pp-part{fill:var(--p-ink)}
 html:root[data-ps="minimal"] .pp-glass{stroke-width:1}
 html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
+#printArea{display:none}
+@media print{
+  @page{size:A3 landscape;margin:9mm}
+  html,body{height:auto!important;overflow:visible!important;background:#fff!important}
+  :root{padding:0!important}
+  .app,.tip,.lightbox,.backdrop{display:none!important}
+  #printArea{display:block}
+  .pa-page{break-after:page;page-break-after:always;height:276mm;display:flex;flex-direction:column;gap:4mm;-webkit-print-color-adjust:exact;print-color-adjust:exact;overflow:hidden}
+  .pa-page:last-child{break-after:auto;page-break-after:auto}
+  .pa-h{display:flex;justify-content:space-between;gap:10mm;font:600 10pt "Archivo",sans-serif;border-bottom:.4mm solid #11263A;padding-bottom:2mm;color:#11263A}
+  .pa-h span{font-weight:400}
+  .pa-svg{flex:1;width:100%;height:0;min-height:0;display:block}
+  .pa-fig{flex:1;margin:0;display:flex;flex-direction:column;min-height:0}
+  .pa-fig figcaption{font:600 11pt "Archivo",sans-serif;padding-top:1.5mm;color:#11263A}
+}
 /* mobile */
 @media (max-width:899px){
   body{font-size:15px}
@@ -385,6 +400,10 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
       <label class="tgl"><span data-t>Surfaces et noms</span><input type="checkbox" data-layer="labels" checked></label>
       <label class="tgl"><span data-t>Traits de coupe</span><input type="checkbox" data-layer="sections" checked></label>
       <label class="tgl"><span data-t>Cartouche</span><input type="checkbox" data-layer="cart" checked></label>
+      <div class="ph" data-t>Impression</div>
+      <button class="btn" data-print="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer le plan</span></button>
+      <button class="btn" data-print="all" style="margin-top:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer tous les plans</span></button>
+      <div class="note" data-t>Format A3 paysage. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.</div>
       <div class="ph" data-t>Légende</div>
       <div class="legend">
         <span><svg viewBox="0 0 34 16"><defs><pattern id="lgh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" class="hb"/><line x1="0" y1="0" x2="0" y2="5" class="hl"/></pattern></defs><rect x="1" y="3" width="32" height="10" fill="url(#lgh)" stroke="currentColor"/></svg><span data-t>Mur en parpaings, 0,20 m</span></span>
@@ -401,6 +420,10 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
       <div class="psg" data-picker></div>
       <div class="ph" data-t>Planches</div>
       <div class="toc" id="toc"></div>
+      <div class="ph" data-t>Impression</div>
+      <button class="btn" data-print="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer le plan</span></button>
+      <button class="btn" data-print="all" style="margin-top:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg><span data-t>Imprimer tous les plans</span></button>
+      <div class="note" data-t>Format A3 paysage. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.</div>
       <div class="note" data-t>Cliquez sur une planche pour l’ouvrir en grand et zoomer dans les détails.</div>
     </section>
 
@@ -426,7 +449,7 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
 
     <div class="view" id="v-plan" role="tabpanel" aria-label="Plan">
       <svg class="pp" id="plan" role="img" aria-label="Plan coté du rez-de-chaussée"></svg>
-      <div class="zoom"><button id="zin" aria-label="Zoomer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button><button id="zout" aria-label="Dézoomer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg></button><button id="zfit" aria-label="Ajuster à l’écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
+      <div class="zoom"><button id="zin" aria-label="Zoomer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button><button id="zout" aria-label="Dézoomer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg></button><button id="zprint" aria-label="Imprimer le plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8V3.5h10V8"/><rect x="3.5" y="8" width="17" height="8.5" rx="1.5"/><path d="M7 13.5h10v7H7z"/><circle cx="17" cy="10.8" r=".9" fill="currentColor"/></svg></button><button id="zfit" aria-label="Ajuster à l’écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
       <button class="fab" id="fabP"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg><span data-t>Calques</span></button>
       <div class="card" id="cardP"></div>
     </div>
@@ -442,6 +465,7 @@ html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
   </main>
 </div>
 <div class="tip" id="tip"></div>
+<div id="printArea" aria-hidden="true"></div>
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Planche agrandie"><div class="lbt" id="lbt"></div><button class="x" id="lbx" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -510,6 +534,8 @@ var WO={
 "Passage du local 1":"Buntu néeg 1","Porte du local 2":"Buntu néeg 2","Surface libre du hangar":"Bérab bu wéy ci hangar bi","Volume intérieur":"Bérab biir",
 "Relevé de l’état actuel : murs porteurs en parpaings avec ossature en béton armé, pignons sur les façades de 18 m, dallage béton coulé et deux locaux adossés près de l’entrée. La toiture n’est pas encore posée.":"Natt yi ci fi tabax bi tollu tey: miir yu bloog ak beton armé, ñaari pignon ci kanam yu 18 m, suuf beton ak ñaari néeg yu taq ci bunt bi. Kaw kër gi amagul.",
 "P_PREC1":"Natt yu mag yi (24,00 × 18,00 m, 4,00 m ci cat miir, 5,00 m ci kaw), ñoo ko joxe ci bérab bi. Bunt yi, palanteer yi, ponto yi ak ñaari néeg yi, ñu natt leen ci nataal, te mën nañu juum ba ±0,30 m. Bu baax nga natt leen ak meetar balaa nga leen jëfandikoo ngir devi walla liggéey.",
+"Impression":"Imprime","Imprimer le plan":"Imprime plaŋ bi","Imprimer tous les plans":"Imprime plaŋ yépp","Élévations et coupes":"Kanam ak dog",
+"Format A3 paysage. Pour obtenir un PDF, choisissez « Enregistrer en PDF » dans la fenêtre d’impression.":"Format A3 bu tëdd. Ngir am PDF, tànnal « Enregistrer en PDF » ci palanteeru imprime bi.",
 "P_PREC2":"Hangar bi amagul kaw. Weñ yu ñuy xaar ñoo génn ci kawu ponto yi. Néeg yi amuñu dàll."
 };
 var FRX={"P_PREC1":"Les dimensions générales (24,00 × 18,00 m, 4,00 m à l’égout, 5,00 m au faîtage) ont été fournies sur place. L’ouverture d’entrée, les fenêtres, les pilastres et les deux locaux ont été positionnés et mesurés sur photos, avec une tolérance estimée de ±0,30 m. Il est conseillé de les vérifier au mètre avant de s’appuyer sur ces plans pour un devis ou des travaux.",
@@ -717,7 +743,7 @@ function secT(svg){var b=sheetBase(svg,18),E=function(x){return b.E(18-x);},Y=b.
   var d=el("g",{},svg);dimV(d,Y(0),Y(4),b.E(0)-30,"4,00",b.E(0));dimV(d,Y(0),Y(5),b.E(0)-62,"5,00");el("line",{x1:b.E(0)-66,y1:Y(5),x2:b.E(9),y2:Y(5),"class":"ev-ext"},d);
   dimV(d,Y(0),Y(2.8),b.E(13.8)-14,"2,80");dimV(d,Y(0),Y(3.5),b.E(9),"3,50");
   dimH(d,b.E(0.2),b.E(17.8),Y(0)+40,"17,60",Y(0)+22);dimH(d,b.E(0),b.E(18),Y(0)+68,"18,00",Y(0)+40);
-  levels(d,b.E,Y,18,[[5,"+5,00","faîtage",9],[4,"+4,00","égout"],[3.5,"+3,50","sous linteau",11.5],[0,"±0,00","dallage"]]);
+  levels(d,b.E,Y,18,[[5,"+5,00","faîtage",9],[4,"+4,00","égout"],[0,"±0,00","dallage"]]);
 }
 function secL(svg){var b=sheetBase(svg,24),E=b.E,Y=b.Y,g=b.g;
   el("rect",{x:E(0.2),y:Y(4),width:23.6*S,height:4*S,"class":"ev-face"},g);
@@ -858,6 +884,23 @@ function setLang(l,first){LANG=l==="wo"?"wo":"fr";try{localStorage.setItem("hang
   pz.fit();showCard(cardP,null);buildSheets();buildDoc();buildPickers();if(window.__lang3d)window.__lang3d();}
 document.querySelectorAll(".lang button").forEach(function(b){b.onclick=function(){setLang(b.dataset.l);};});
 setLang(LANG,true);
+
+
+/* ---------- impression ---------- */
+var printArea=document.getElementById("printArea");
+function preparePrint(mode){printArea.innerHTML="";
+  function page(title,nodes,cls){var d=document.createElement("section");d.className="pa-page "+(cls||"");var h=document.createElement("header");h.className="pa-h";
+    h.innerHTML="<b>Hangar 24 × 18 m</b><span>"+esc(title)+"</span><span>27.10.2026</span>";d.appendChild(h);nodes.forEach(function(n){d.appendChild(n);});printArea.appendChild(d);}
+  function clone(svg,vb){var c=svg.cloneNode(true);c.removeAttribute("id");c.removeAttribute("style");if(vb)c.setAttribute("viewBox",vb);c.classList.add("pa-svg");c.querySelectorAll(".sel").forEach(function(n){n.classList.remove("sel");});return c;}
+  page(L("Plan du rez-de-chaussée, état actuel"),[clone(plan,"0 0 860 1200")],"pa-plan");
+  if(mode==="all"){var list=SHEETS.map(function(x){return {t:L(x.t),svg:document.querySelector("#"+x.id+" svg")};});
+    for(var i=0;i<list.length;i+=2){page(L("Élévations et coupes"),list.slice(i,i+2).map(function(x){var f=document.createElement("figure");f.className="pa-fig";f.appendChild(clone(x.svg));
+      var c=document.createElement("figcaption");c.textContent=x.t;f.appendChild(c);return f;}));}}}
+function doPrint(mode){closeSheet();preparePrint(mode);setTimeout(function(){window.print();},60);}
+document.querySelectorAll("[data-print]").forEach(function(b){b.onclick=function(){doPrint(b.dataset.print);};});
+document.getElementById("zprint").onclick=function(){doPrint("plan");};
+window.addEventListener("beforeprint",function(){if(!printArea.firstChild)preparePrint("all");});
+window.addEventListener("afterprint",function(){printArea.innerHTML="";});
 
 /* ---------- MAQUETTE 3D ---------- */
 var host=document.getElementById("v-model"),loader=document.getElementById("loader");
