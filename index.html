@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B1824">
+<meta name="description" content="Maquette 3D, plan coté, façades et coupes du hangar 24 × 18 m.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hangar 3D">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Hangar 24 × 18 m, état actuel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9EEF1;--panel:#FFFFFF;--panel2:#F2F5F7;--ink:#11263A;--ink2:#40566A;--muted:#6B7E8D;--line:#D5DDE3;
+  --accent:#C27A2C;--accent2:#F6E7D3;--onink:#FFFFFF;
+  --paper:#FBFCFC;--p-ink:#11263A;--p-line:#A3B3C0;--p-dim:#B0631B;--p-floor:#F1EEE7;--p-wall:#E3E8EC;--p-glass:#3E86C4;--p-axis:#8AA0B2;--p-void:#1D3448;--p-face:#ECEFF1;--p-conc:#C9D2D9;--p-earth:#B9A487;--p-blk:#D9D3C6;--p-mortar:#A79E8C;
+  --shadow:0 18px 50px -24px rgba(17,38,58,.45);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A1622;--panel:#0F2131;--panel2:#152B3E;--ink:#E7EEF3;--ink2:#AFC0CC;--muted:#7F94A5;--line:#22394D;
+  --accent:#E6A65A;--accent2:#3A2B18;--onink:#0A1622;
+  --paper:#0E3150;--p-ink:#EAF3FA;--p-line:#4F7899;--p-dim:#F2BC74;--p-floor:#123A5C;--p-wall:#16466E;--p-glass:#8FD0FF;--p-axis:#6F97B8;--p-void:#06192A;--p-face:#14416A;--p-conc:#2A5A82;--p-earth:#3B5D7A;--p-blk:#1C4A72;--p-mortar:#0E3150;
+  --shadow:0 18px 50px -20px rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1622;--panel:#0F2131;--panel2:#152B3E;--ink:#E7EEF3;--ink2:#AFC0CC;--muted:#7F94A5;--line:#22394D;
+  --accent:#E6A65A;--accent2:#3A2B18;--onink:#0A1622;
+  --paper:#0E3150;--p-ink:#EAF3FA;--p-line:#4F7899;--p-dim:#F2BC74;--p-floor:#123A5C;--p-wall:#16466E;--p-glass:#8FD0FF;--p-axis:#6F97B8;--p-void:#06192A;--p-face:#14416A;--p-conc:#2A5A82;--p-earth:#3B5D7A;--p-blk:#1C4A72;--p-mortar:#0E3150;
+  --shadow:0 18px 50px -20px rgba(0,0,0,.7);color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit}
+.app{height:100%;display:grid;grid-template-columns:348px 1fr;grid-template-rows:68px 1fr;grid-template-areas:"brand nav" "side stage"}
+/* barre de titre */
+.brand{grid-area:brand;display:flex;align-items:center;gap:12px;padding:0 18px;background:var(--panel);border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.mark{width:38px;height:38px;flex:none}
+.brand>div{min-width:0;flex:1}
+.brand h1{margin:0;font-size:18px;line-height:1.05;font-weight:780;font-stretch:112%;letter-spacing:-.01em;white-space:nowrap}
+.brand p{margin:2px 0 0;font-size:12.5px;color:var(--muted);font-stretch:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iconbtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);display:grid;place-items:center;cursor:pointer}
+.iconbtn:hover{border-color:var(--ink2)}
+.iconbtn svg{width:19px;height:19px}
+.nav{grid-area:nav;display:flex;align-items:center;gap:16px;padding:0 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px;background:var(--panel2);padding:4px;border-radius:14px;border:1px solid var(--line)}
+.tabs button{display:flex;align-items:center;gap:8px;border:0;background:transparent;padding:9px 16px;border-radius:10px;cursor:pointer;font-weight:560;font-stretch:96%;color:var(--ink2);min-height:40px}
+.tabs button svg{width:18px;height:18px;flex:none}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--onink);box-shadow:0 6px 16px -8px rgba(0,0,0,.5)}
+.navinfo{margin-left:auto;font-size:13px;color:var(--muted);font-stretch:90%;white-space:nowrap}
+.navinfo b{color:var(--ink);font-weight:650}
+/* panneau latéral */
+.side{grid-area:side;background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:18px 18px 28px;overscroll-behavior:contain}
+.grab{display:none}
+.cart{border:1.5px solid var(--ink);border-radius:14px;overflow:hidden;margin-bottom:22px}
+.cart .ct{padding:14px 16px 12px;background:var(--ink);color:var(--onink)}
+.cart .ct b{display:block;font-size:30px;line-height:1;font-weight:800;font-stretch:122%;letter-spacing:-.02em}
+.cart .ct span{font-size:12.5px;opacity:.75}
+.cart dl{display:grid;grid-template-columns:1fr 1fr;margin:0}
+.cart dl div{padding:9px 14px;border-top:1px solid var(--line)}
+.cart dl div:nth-child(odd){border-right:1px solid var(--line)}
+.cart dt{font-size:11.5px;color:var(--muted)}
+.cart dd{margin:0;font-weight:680;font-stretch:88%;font-size:17px;font-variant-numeric:tabular-nums}
+.panel{display:none}
+.app[data-tab="model"] .panel[data-for="model"],.app[data-tab="plan"] .panel[data-for="plan"],.app[data-tab="elev"] .panel[data-for="elev"],.app[data-tab="info"] .panel[data-for="info"]{display:block}
+.ph{font-size:12px;color:var(--muted);font-weight:600;margin:20px 0 8px;font-stretch:92%}
+.ph:first-child{margin-top:0}
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.vbtn{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:10px 6px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12.5px;font-weight:560;min-height:64px}
+.vbtn svg{width:24px;height:24px;color:var(--ink2)}
+.vbtn:hover{border-color:var(--ink2)}
+.vbtn[aria-pressed="true"]{background:var(--ink);color:var(--onink);border-color:var(--ink)}
+.vbtn[aria-pressed="true"] svg{color:var(--accent)}
+.seg2{display:grid;grid-template-columns:1fr 1fr;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg2 button{border:0;background:transparent;border-radius:9px;padding:8px;cursor:pointer;font-weight:560;min-height:38px}
+.seg2 button[aria-pressed="true"]{background:var(--panel);box-shadow:0 1px 0 var(--line),0 4px 12px -6px rgba(0,0,0,.35)}
+.tgl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 2px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14.5px}
+.tgl:last-child{border-bottom:0}
+.tgl input{appearance:none;-webkit-appearance:none;width:42px;height:25px;border-radius:20px;background:var(--line);position:relative;cursor:pointer;flex:none;transition:background .2s;margin:0}
+.tgl input::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.tgl input:checked{background:var(--accent)}
+.tgl input:checked::after{transform:translateX(17px)}
+.rng{padding:4px 2px 10px}
+.rng label{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:6px}
+.rng output{font-weight:650;font-stretch:88%;font-variant-numeric:tabular-nums;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px;margin:0}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1px solid var(--ink);background:transparent;border-radius:12px;padding:11px;font-weight:620;cursor:pointer;min-height:44px}
+.btn:hover{background:var(--ink);color:var(--onink)}
+.btn svg{width:18px;height:18px}
+.legend{display:grid;gap:8px;font-size:13.5px;color:var(--ink2)}
+.legend span{display:flex;align-items:center;gap:10px}
+.legend svg{width:34px;height:16px;flex:none}
+.note{font-size:13px;color:var(--muted);margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
+.toc{display:grid;gap:6px}
+.toc button{text-align:left;border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:10px 12px;cursor:pointer;display:flex;justify-content:space-between;gap:8px;min-height:44px}
+.toc button:hover{border-color:var(--ink2)}
+.toc small{color:var(--muted)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* scène */
+.stage{grid-area:stage;position:relative;overflow:hidden;background:var(--bg)}
+.view{position:absolute;inset:0;display:none}
+.app[data-tab="model"] #v-model,.app[data-tab="plan"] #v-plan,.app[data-tab="elev"] #v-elev,.app[data-tab="info"] #v-info{display:block}
+#v-model canvas{display:block;width:100%;height:100%;touch-action:none}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.pin{pointer-events:auto;border:0;cursor:pointer;display:flex;align-items:center;gap:0;padding:0;background:transparent;transform:translateY(-50%)}
+.pin i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:750;font-size:13px;background:#11263A;color:#fff;border:2px solid #fff;box-shadow:0 6px 16px -4px rgba(0,0,0,.55)}
+.pin span{max-width:0;overflow:hidden;white-space:nowrap;background:#fff;color:#11263A;font-size:12.5px;font-weight:620;border-radius:0 14px 14px 0;padding:5px 0;margin-left:-10px;transition:max-width .25s,padding .25s;box-shadow:0 6px 16px -6px rgba(0,0,0,.5)}
+.pin:hover span,.pin:focus-visible span,.pin.on span{max-width:180px;padding:5px 12px 5px 14px}
+.pin.on i{background:#C27A2C}
+.dlabel{font:700 12.5px "Archivo",sans-serif;font-stretch:85%;background:#11263A;color:#fff;padding:3px 8px;border-radius:7px;box-shadow:0 4px 12px -4px rgba(0,0,0,.5);font-variant-numeric:tabular-nums}
+.chips{position:absolute;left:0;right:0;bottom:14px;display:none;gap:8px;overflow-x:auto;padding:0 14px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid rgba(255,255,255,.4);background:rgba(17,38,58,.78);color:#fff;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:22px;padding:10px 16px;font-weight:600;font-size:14px;min-height:44px;cursor:pointer}
+.chip[aria-pressed="true"]{background:#fff;color:#11263A}
+.fab{position:absolute;right:14px;top:14px;display:none;width:max-content;align-items:center;gap:8px;border:0;border-radius:22px;padding:10px 16px;min-height:44px;background:var(--panel);color:var(--ink);font-weight:620;box-shadow:var(--shadow);cursor:pointer}
+.fab svg{width:18px;height:18px}
+.hud{position:absolute;left:16px;top:16px;display:flex;gap:8px;align-items:center;pointer-events:none}
+.hud span{background:rgba(255,255,255,.86);color:#11263A;border-radius:10px;padding:6px 11px;font-size:12.5px;font-weight:560;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 6px 18px -10px rgba(0,0,0,.5)}
+.compass{position:absolute;right:16px;bottom:16px;width:62px;height:62px;pointer-events:none}
+.loader{position:absolute;inset:0;display:grid;place-items:center;background:var(--bg);z-index:5;transition:opacity .7s ease}
+.loader.off{opacity:0;pointer-events:none}
+.loader div{text-align:center}
+.loader svg{width:120px;height:90px}
+.loader .ln{stroke:var(--accent);stroke-width:2.2;fill:none;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.6s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.loader p{margin:10px 0 0;color:var(--muted);font-size:13.5px}
+.err{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:30px;z-index:6;background:var(--bg)}
+/* fiche d'information */
+.card{position:absolute;right:16px;top:16px;width:310px;background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:16px 18px 14px;z-index:4;display:none}
+.card.show{display:block;animation:pop .22s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}to{opacity:1;transform:none}}
+.card .k{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:750;font-size:13px;align-items:center;justify-content:center;margin-right:8px}
+.card h3{margin:0 0 10px;font-size:19px;font-weight:760;font-stretch:110%;display:flex;align-items:center;padding-right:32px}
+.card ul{list-style:none;margin:0;padding:0}
+.card li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--line);font-size:14px}
+.card li b{font-weight:650;font-stretch:90%;text-align:right;font-variant-numeric:tabular-nums}
+.card .src{font-size:12px;color:var(--muted);margin-top:8px}
+.card .x{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:10px;border:0;background:var(--panel2);cursor:pointer;display:grid;place-items:center}
+.card .x svg{width:16px;height:16px}
+/* plan */
+#v-plan{background:var(--paper)}
+#v-plan svg.pp{width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#v-plan svg.pp:active{cursor:grabbing}
+.zoom{position:absolute;left:16px;bottom:16px;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.zoom button{width:46px;height:46px;border:0;background:transparent;cursor:pointer;display:grid;place-items:center;border-bottom:1px solid var(--line)}
+.zoom button:last-child{border-bottom:0}
+.zoom button:hover{background:var(--panel2)}
+.zoom svg{width:18px;height:18px}
+.tip{position:fixed;pointer-events:none;z-index:50;background:var(--ink);color:var(--onink);font-size:12.5px;padding:6px 10px;border-radius:9px;display:none;font-weight:560;white-space:nowrap}
+/* élévations */
+#v-elev{overflow:auto;padding:22px 22px 40px;overscroll-behavior:contain}
+.sheets{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1500px;margin:0 auto}
+.sheetc{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:zoom-in;margin:0;transition:box-shadow .2s,transform .2s;scroll-margin-top:16px}
+.sheetc:hover{box-shadow:var(--shadow)}
+.sheetc.wide{grid-column:1/-1}
+.sheetc svg{display:block;width:100%;height:auto}
+.sheetc figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 18px;background:var(--panel);border-top:1px solid var(--line)}
+.sheetc figcaption b{font-size:16px;font-weight:720;font-stretch:108%}
+.sheetc figcaption span{font-size:13px;color:var(--muted)}
+.lightbox{position:fixed;inset:0;z-index:60;background:var(--paper);display:none}
+.lightbox.show{display:block}
+.lightbox svg{width:100%;height:100%;touch-action:none;display:block}
+.lightbox .x{position:absolute;right:16px;top:calc(16px + env(safe-area-inset-top,0px));width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow);cursor:pointer;display:grid;place-items:center}
+.lightbox .x svg{width:18px;height:18px}
+.lightbox .lbt{position:absolute;left:16px;top:calc(16px + env(safe-area-inset-top,0px));background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 14px;font-weight:680;box-shadow:var(--shadow)}
+/* infos */
+#v-info{overflow:auto;padding:34px 28px 60px}
+.doc{max-width:860px;margin:0 auto}
+.doc h2{font-size:clamp(34px,5vw,56px);line-height:.98;font-weight:800;font-stretch:122%;letter-spacing:-.025em;margin:0 0 14px}
+.doc .lead{font-size:17px;color:var(--ink2);max-width:62ch;margin:0 0 28px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--ink);border-radius:18px;overflow:hidden;margin-bottom:34px;background:var(--panel)}
+.stats div{padding:16px 18px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-size:30px;font-weight:780;font-stretch:84%;font-variant-numeric:tabular-nums;line-height:1.1}
+.stats span{font-size:12.5px;color:var(--muted)}
+.doc h3{font-size:20px;font-weight:740;font-stretch:108%;margin:30px 0 10px}
+.tbl{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--panel);border-radius:14px;overflow:hidden}
+.tbl th,.tbl td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+.tbl th{font-size:12px;color:var(--muted);font-weight:600;background:var(--panel2)}
+.tbl td.n{font-variant-numeric:tabular-nums;font-stretch:90%;font-weight:600;white-space:nowrap}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+.doc p{max-width:68ch}
+.badge{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:20px;background:var(--accent2);color:var(--accent);font-weight:650;white-space:nowrap}
+.backdrop{display:none}
+/* dessins : classes communes */
+.pp text{font-family:"Archivo",sans-serif;font-stretch:80%}
+.pp-paper{fill:var(--paper)}
+.pp-frame{fill:none;stroke:var(--p-ink);stroke-width:1.2}
+.pp-frame2{fill:none;stroke:var(--p-ink);stroke-width:.5}
+.pp-floor{fill:var(--p-floor)}
+.pp-joint{stroke:var(--p-line);stroke-width:.7;stroke-dasharray:6 5;fill:none}
+.pp-wall{fill:url(#ph);stroke:var(--p-ink);stroke-width:1.3}
+.pp-part{fill:url(#ph2);stroke:var(--p-ink);stroke-width:1}
+.pp-conc{fill:var(--p-ink)}
+.hb{fill:var(--p-wall)}.hl{stroke:var(--p-ink);stroke-width:.7}
+.pp-win{fill:var(--paper);stroke:var(--p-ink);stroke-width:.9}
+.pp-glass{stroke:var(--p-glass);stroke-width:2}
+.pp-hid{stroke:var(--p-ink);stroke-width:.8;stroke-dasharray:7 4;fill:none}
+.pp-axis{stroke:var(--p-axis);stroke-width:.8;stroke-dasharray:22 5 3 5;fill:none}
+.pp-bub{fill:var(--paper);stroke:var(--p-ink);stroke-width:1.2}
+.pp-bubt{fill:var(--p-ink);font-size:14px;font-weight:700}
+.pp-dim{stroke:var(--p-dim);stroke-width:.9}
+.pp-tick{stroke:var(--p-dim);stroke-width:1.8}
+.pp-ext{stroke:var(--p-dim);stroke-width:.5;opacity:.75}
+.pp-dimt{fill:var(--p-dim);font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.pp-room{fill:var(--p-ink);font-size:17px;font-weight:760;font-stretch:112%!important}
+.pp-roomS{fill:var(--p-ink);font-size:13px;font-weight:720;font-stretch:105%!important}
+.pp-area{fill:var(--p-ink);opacity:.72;font-size:12px}
+.pp-tag{fill:var(--p-ink);font-size:11px;font-weight:700}
+.pp-tagb{fill:var(--paper);stroke:var(--p-ink);stroke-width:.8}
+.pp-sec{stroke:var(--accent);stroke-width:3;fill:none}
+.pp-secl{stroke:var(--accent);stroke-width:.9;stroke-dasharray:24 5 3 5;fill:none}
+.pp-secb{fill:var(--accent)}
+.pp-sect{fill:#fff;font-size:12px;font-weight:750}
+.pp-ct{fill:var(--p-ink);font-size:12px}
+.pp-ctb{fill:var(--p-ink);font-size:22px;font-weight:800;font-stretch:120%!important}
+.pp-ctm{fill:var(--p-ink);opacity:.65;font-size:11px}
+.pp-sb1{fill:var(--p-ink)}.pp-sb0{fill:var(--paper);stroke:var(--p-ink);stroke-width:.8}
+.pp-lvl{fill:none;stroke:var(--p-ink);stroke-width:1}
+.pp-lvlt{fill:var(--p-ink);font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
+.pp-lvls{fill:var(--p-ink);opacity:.65;font-size:11px}
+.pp-arrow{stroke:var(--p-ink);stroke-width:1.3;fill:none}
+.pp-arrowh{fill:var(--p-ink)}
+.ev-ground{stroke:var(--p-ink);stroke-width:2.4}
+.ev-earth{fill:url(#pe)}.eb{fill:var(--p-earth);opacity:.35}.el{stroke:var(--p-ink);stroke-width:.6;opacity:.55}
+.ev-blk{fill:url(#pb);stroke:var(--p-ink);stroke-width:1.3}.bb{fill:var(--p-blk)}.bl{stroke:var(--p-mortar);stroke-width:.8}
+.ev-render{fill:var(--p-face);stroke:var(--p-ink);stroke-width:1.3}
+.ev-face{fill:var(--p-face);stroke:var(--p-ink);stroke-width:.8}
+.ev-conc{fill:var(--p-conc);stroke:var(--p-ink);stroke-width:.8}
+.ev-void{fill:var(--p-void);stroke:var(--p-ink);stroke-width:1}
+.ev-sill{stroke:var(--p-ink);stroke-width:1.4}
+.ev-cut{fill:var(--p-ink)}
+.ev-slab{fill:url(#ps);stroke:var(--p-ink);stroke-width:1}.sb{fill:var(--p-conc)}.sd{fill:var(--p-ink);opacity:.55}
+.ev-steel{stroke:var(--p-ink);stroke-width:1.1}
+.ev-thin{stroke:var(--p-ink);stroke-width:.6;fill:none;opacity:.7}
+.ev-joint{stroke:var(--p-ink);stroke-width:.5;stroke-dasharray:5 4;opacity:.45}
+.ev-ext{stroke:var(--p-ink);stroke-width:.5;stroke-dasharray:3 3;opacity:.6}
+.pp [data-tip]{cursor:pointer}
+.pp [data-tip]:hover{opacity:.82}
+.pp .sel>*{stroke:var(--accent)!important;stroke-width:3!important}
+.pp .sel>text{stroke:none!important;fill:var(--accent)!important}
+
+.lang{margin-left:auto;flex:none;display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:3px}
+.lang button{border:0;background:transparent;border-radius:9px;padding:0 10px;height:32px;font-weight:700;font-size:12.5px;cursor:pointer;color:var(--ink2);font-stretch:95%}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--onink)}
+.psg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.psc{border:1px solid var(--line);background:var(--panel2);border-radius:14px;padding:6px 6px 9px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:44px}
+.psc:hover{border-color:var(--ink2)}
+.psc[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.psc svg{width:100%;height:auto;border-radius:9px;display:block}
+.psc b{font-size:13.5px;font-weight:680;padding:0 4px;line-height:1.15}
+.psc small{font-size:11.5px;color:var(--muted);padding:0 4px;line-height:1.2}
+html:root[data-ps="technique"]{--paper:#FFFFFF;--p-ink:#141414;--p-line:#C4C4C4;--p-dim:#B3261E;--p-floor:#FFFFFF;--p-wall:#FFFFFF;--p-glass:#1F5FA8;--p-axis:#8C8C8C;--p-void:#2A2A2A;--p-face:#F4F4F4;--p-conc:#D6D6D6;--p-earth:#8C8C8C;--p-blk:#ECECEC;--p-mortar:#9A9A9A}
+html:root[data-ps="blueprint"]{--paper:#0E3150;--p-ink:#EAF3FA;--p-line:#4F7899;--p-dim:#F2BC74;--p-floor:#123A5C;--p-wall:#16466E;--p-glass:#8FD0FF;--p-axis:#6F97B8;--p-void:#06192A;--p-face:#14416A;--p-conc:#2A5A82;--p-earth:#3B5D7A;--p-blk:#1C4A72;--p-mortar:#0E3150}
+html:root[data-ps="presentation"]{--paper:#E9E5DF;--p-ink:#3F362E;--p-line:#D9D2C8;--p-dim:#8A7B6B;--p-floor:#F8F6F2;--p-wall:#6E6154;--p-glass:#8FB0C2;--p-axis:#C3B9AC;--p-void:#4A4038;--p-face:#F4F0EA;--p-conc:#4E443A;--p-earth:#CDBFAE;--p-blk:#D8CEC0;--p-mortar:#B2A594}
+html:root[data-ps="presentation"] .pp-wall{fill:var(--p-wall);stroke:#2E2720;stroke-width:1.2}
+html:root[data-ps="presentation"] .pp-part{fill:#8C7E6F;stroke:#2E2720}
+html:root[data-ps="presentation"] .pp g[data-layer="walls"],html:root[data-ps="presentation"] .pp .ev-blk,html:root[data-ps="presentation"] .pp .ev-render{filter:url(#psh)}
+html:root[data-ps="presentation"] .pp-joint{stroke:#E6E0D7;stroke-dasharray:none}
+html:root[data-ps="presentation"] .pp-axis{opacity:.6}
+html:root[data-ps="esquisse"]{--paper:#F5EFE2;--p-ink:#34322E;--p-line:#C2B8A6;--p-dim:#86603A;--p-floor:#F5EFE2;--p-wall:#ECE3D0;--p-glass:#5D86A6;--p-axis:#A89E8C;--p-void:#55524C;--p-face:#EFE7D7;--p-conc:#8E877A;--p-earth:#C6B9A2;--p-blk:#E6DDC9;--p-mortar:#A99F8B}
+html:root[data-ps="esquisse"] .pp>g:not([data-layer="labels"]):not([data-layer="cart"]),html:root[data-ps="esquisse"] .pp>g g{filter:url(#psk)}
+html:root[data-ps="esquisse"] .pp text{font-family:"Patrick Hand","Comic Sans MS",cursive;font-stretch:100%!important;letter-spacing:.01em}
+html:root[data-ps="esquisse"] .pp-conc{fill:#5B564D}
+html:root[data-ps="minimal"]{--paper:#FFFFFF;--p-ink:#1A1A1A;--p-line:#ECECEC;--p-dim:#909090;--p-floor:#FFFFFF;--p-wall:#1A1A1A;--p-glass:#1A1A1A;--p-axis:#DDDDDD;--p-void:#EFEFEF;--p-face:#FFFFFF;--p-conc:#1A1A1A;--p-earth:#E6E6E6;--p-blk:#FFFFFF;--p-mortar:#D4D4D4}
+html:root[data-ps="minimal"] .pp-wall,html:root[data-ps="minimal"] .pp-part{fill:var(--p-ink)}
+html:root[data-ps="minimal"] .pp-glass{stroke-width:1}
+html:root[data-ps="minimal"] .pp-bub{stroke-width:.7}
+/* mobile */
+@media (max-width:899px){
+  body{font-size:15px}
+  .app{grid-template-columns:1fr;grid-template-rows:58px 1fr auto;grid-template-areas:"brand" "stage" "nav"}
+  .brand{border-right:0;padding:0 14px}
+  .brand h1{font-size:18px}
+  .brand p{display:none}
+  .lang button{padding:0 9px;height:34px}
+  .nav{padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));border-bottom:0;border-top:1px solid var(--line);margin-bottom:calc(-1 * env(safe-area-inset-bottom,0px))}
+  .navinfo{display:none}
+  .tabs{width:100%;display:grid;grid-template-columns:repeat(4,1fr);background:transparent;border:0;padding:0;gap:4px}
+  .tabs button{flex-direction:column;gap:3px;padding:7px 2px;font-size:11.5px;min-height:54px;justify-content:center}
+  .tabs button svg{width:22px;height:22px}
+  .tabs button[aria-selected="true"]{background:var(--panel2);color:var(--ink);box-shadow:none}
+  .tabs button[aria-selected="true"] svg{color:var(--accent)}
+  .side{position:fixed;left:0;right:0;bottom:0;z-index:40;max-height:78%;border-radius:22px 22px 0 0;border:0;box-shadow:0 -20px 60px -20px rgba(0,0,0,.5);transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);padding:8px 18px calc(24px + env(safe-area-inset-bottom,0px))}
+  .side.open{transform:none}
+  .grab{display:block;width:44px;height:5px;border-radius:5px;background:var(--line);margin:4px auto 14px}
+  .cart{display:none}
+  .backdrop{display:block;position:fixed;inset:0;z-index:39;background:rgba(5,14,22,.45);opacity:0;pointer-events:none;transition:opacity .3s}
+  .backdrop.show{opacity:1;pointer-events:auto}
+  .app[data-tab="model"] .chips{display:flex}
+  .fab{display:flex}
+  .app[data-tab="info"] .fab{display:none}
+  #fabE{display:flex}
+  .hud{display:none}
+  .compass{top:72px;bottom:auto;width:50px;height:50px}
+  .card{left:12px;right:12px;width:auto;top:auto;bottom:72px}
+  #v-plan .card{bottom:16px;left:76px}
+  .zoom{left:12px;bottom:16px}
+  .sheets{grid-template-columns:1fr;gap:14px}
+  #v-elev{padding:14px 12px 30px}
+  #v-info{padding:24px 16px 50px}
+  .stats{grid-template-columns:1fr 1fr}
+  .stats div:nth-child(2){border-right:0}
+  .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .vgrid .vbtn{min-height:58px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app" id="app" data-tab="model">
+  <header class="brand">
+    <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#11263A"/><path d="M7 30V17.5L20 12l13 5.5V30z" fill="#D6BC8E"/><rect x="16" y="21" width="8" height="9" fill="#11263A"/><rect x="10" y="19.5" width="3.5" height="2" fill="#11263A"/><rect x="26.5" y="19.5" width="3.5" height="2" fill="#11263A"/><path d="M5 30.5h30" stroke="#E6A65A" stroke-width="1.6"/></svg>
+    <div><h1>Hangar 24 × 18</h1><p data-t>État actuel du chantier</p></div>
+    <div class="lang" role="group" aria-label="Langue"><button data-l="fr" title="Français" aria-pressed="true">FR</button><button data-l="wo" title="Wolof" aria-pressed="false">WO</button></div>
+    <button class="iconbtn" id="themeBtn" aria-label="Changer de thème clair ou sombre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor"/></svg></button>
+  </header>
+
+  <nav class="nav">
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-tab="model" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 2.8 20.5 7.5v9L12 21.2 3.5 16.5v-9z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9.2"/></svg><span data-t>Maquette 3D</span></button>
+      <button role="tab" data-tab="plan" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="3.5" width="17" height="17" rx="1"/><path d="M3.5 10h6v10.5M13.5 3.5V8M9.5 14h11"/></svg><span data-t>Plan</span></button>
+      <button role="tab" data-tab="elev" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M3 20.5h18M4.5 20.5v-10L12 7l7.5 3.5v10"/><path d="M10 20.5v-5h4v5"/></svg><span data-t>Élévations</span></button>
+      <button role="tab" data-tab="info" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M14.5 3.5V7.5h4M9 12h6.5M9 15.5h6.5"/></svg><span data-t>Données</span></button>
+    </div>
+    <div class="navinfo" id="navinfo" data-t>432 m² construits, relevé du 27.10.2026</div>
+  </nav>
+
+  <aside class="side" id="side" aria-label="Réglages">
+    <div class="grab" id="grab"></div>
+    <section class="cart">
+      <div class="ct"><b>24 × 18 m</b><span data-t>Hangar en parpaings et ossature béton</span></div>
+      <dl>
+        <div><dt data-t>Hauteur à l’égout</dt><dd>4,00 m</dd></div>
+        <div><dt data-t>Hauteur au faîtage</dt><dd>5,00 m</dd></div>
+        <div><dt data-t>Surface construite</dt><dd>432,0 m²</dd></div>
+        <div><dt data-t>Surface intérieure</dt><dd>415,4 m²</dd></div>
+      </dl>
+    </section>
+
+    <section class="panel" data-for="model">
+      <div class="ph" data-t>Points de vue</div>
+      <div class="vgrid" id="vgrid">
+        <button class="vbtn" data-v="exterieur" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 15 12 19l9-4-9-4z"/><path d="M3 15V9l9-4 9 4v6M12 11V5"/></svg><span data-t>Perspective</span></button>
+        <button class="vbtn" data-v="entree" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 19h18M4 19V9l8-3 8 3v10"/><rect x="9" y="12" width="6" height="7"/></svg><span data-t>Entrée</span></button>
+        <button class="vbtn" data-v="arriere" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 19h18M4 19V9l8-3 8 3v10"/></svg><span data-t>Arrière</span></button>
+        <button class="vbtn" data-v="dessus" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="3.5" width="14" height="17"/><path d="M5 9h5v5H5"/></svg><span data-t>Dessus</span></button>
+        <button class="vbtn" data-v="interieur" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="2.5"/><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/></svg><span data-t>Intérieur</span></button>
+        <button class="vbtn" data-v="locaux" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5" width="17" height="14"/><path d="M11 5v14M11 12h9.5"/></svg><span data-t>Locaux</span></button>
+      </div>
+      <div class="ph" data-t>Rendu</div>
+      <div class="seg2" id="style">
+        <button data-s="real" aria-pressed="true" data-t>Réaliste</button>
+        <button data-s="white" aria-pressed="false" data-t>Maquette blanche</button>
+      </div>
+      <div class="ph" data-t>Lumière et coupe</div>
+      <div class="rng"><label for="sun"><span data-t>Heure du soleil</span><output id="sunO">16 h 30</output></label><input type="range" id="sun" min="6.5" max="19.5" step="0.25" value="16.5"></div>
+      <div class="rng"><label for="cut"><span data-t>Coupe horizontale</span><output id="cutO">aucune</output></label><input type="range" id="cut" min="0.6" max="5.2" step="0.05" value="5.2"></div>
+      <div class="ph" data-t>Affichage</div>
+      <label class="tgl"><span data-t>Repères d’information</span><input type="checkbox" id="tPins" checked></label>
+      <label class="tgl"><span data-t>Cotes principales</span><input type="checkbox" id="tDims"></label>
+      <label class="tgl"><span data-t>Arêtes des volumes</span><input type="checkbox" id="tEdges" checked></label>
+      <label class="tgl"><span data-t>Façade d’entrée</span><input type="checkbox" id="tFront" checked></label>
+      <label class="tgl"><span data-t>Abords du chantier</span><input type="checkbox" id="tSite" checked></label>
+      <label class="tgl"><span data-t>Silhouette de 1,75 m</span><input type="checkbox" id="tFig" checked></label>
+      <label class="tgl"><span data-t>Rotation automatique</span><input type="checkbox" id="tRot"></label>
+      <div class="ph" data-t>Exporter</div>
+      <button class="btn" id="shot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 8h3l1.6-2.5h6.8L17 8h3v11H4z"/><circle cx="12" cy="13.2" r="3.4"/></svg><span data-t>Enregistrer une image</span></button>
+    </section>
+
+    <section class="panel" data-for="plan">
+      <div class="ph" data-t>Style du plan</div>
+      <div class="psg" data-picker></div>
+      <div class="ph" data-t>Calques</div>
+      <label class="tgl"><span data-t>Cotes</span><input type="checkbox" data-layer="dims" checked></label>
+      <label class="tgl"><span data-t>Axes de structure</span><input type="checkbox" data-layer="axes" checked></label>
+      <label class="tgl"><span data-t>Joints du dallage</span><input type="checkbox" data-layer="joints" checked></label>
+      <label class="tgl"><span data-t>Surfaces et noms</span><input type="checkbox" data-layer="labels" checked></label>
+      <label class="tgl"><span data-t>Traits de coupe</span><input type="checkbox" data-layer="sections" checked></label>
+      <label class="tgl"><span data-t>Cartouche</span><input type="checkbox" data-layer="cart" checked></label>
+      <div class="ph" data-t>Légende</div>
+      <div class="legend">
+        <span><svg viewBox="0 0 34 16"><defs><pattern id="lgh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" class="hb"/><line x1="0" y1="0" x2="0" y2="5" class="hl"/></pattern></defs><rect x="1" y="3" width="32" height="10" fill="url(#lgh)" stroke="currentColor"/></svg><span data-t>Mur en parpaings, 0,20 m</span></span>
+        <span><svg viewBox="0 0 34 16"><rect x="1" y="3" width="32" height="10" fill="currentColor"/></svg><span data-t>Poteau ou pilastre béton</span></span>
+        <span><svg viewBox="0 0 34 16"><rect x="1" y="5" width="32" height="6" fill="none" stroke="currentColor"/><line x1="1" y1="8" x2="33" y2="8" stroke="#3E86C4" stroke-width="2"/></svg><span data-t>Baie de fenêtre</span></span>
+        <span><svg viewBox="0 0 34 16"><line x1="1" y1="8" x2="33" y2="8" stroke="currentColor" stroke-dasharray="6 3"/></svg><span data-t>Linteau au-dessus du passage</span></span>
+        <span><svg viewBox="0 0 34 16"><line x1="1" y1="8" x2="33" y2="8" stroke="#C27A2C" stroke-width="3"/></svg><span data-t>Trait de coupe</span></span>
+      </div>
+      <div class="note" data-t>Touchez un mur, une baie ou un local pour afficher ses mesures. Pincez ou utilisez la molette pour zoomer.</div>
+    </section>
+
+    <section class="panel" data-for="elev">
+      <div class="ph" data-t>Style du plan</div>
+      <div class="psg" data-picker></div>
+      <div class="ph" data-t>Planches</div>
+      <div class="toc" id="toc"></div>
+      <div class="note" data-t>Cliquez sur une planche pour l’ouvrir en grand et zoomer dans les détails.</div>
+    </section>
+
+    <section class="panel" data-for="info">
+      <div class="ph" data-t>À propos du relevé</div>
+      <p data-t style="margin:0;color:var(--ink2);font-size:14px">Dimensions générales fournies sur place. Ouvertures, pilastres et locaux positionnés d’après photos du chantier.</p>
+    </section>
+  </aside>
+  <div class="backdrop" id="backdrop"></div>
+
+  <main class="stage" id="stage">
+    <div class="view" id="v-model" role="tabpanel" aria-label="Maquette 3D">
+      <canvas id="c3d" aria-label="Maquette 3D interactive du hangar"></canvas>
+      <div class="labels" id="labels"></div>
+      <div class="hud" id="hud"><span data-t>Glisser pour tourner</span><span data-t>Clic droit pour déplacer</span><span data-t>Molette pour zoomer</span></div>
+      <svg class="compass" id="compass" viewBox="0 0 62 62" aria-hidden="true"><circle cx="31" cy="31" r="29" fill="rgba(255,255,255,.88)" stroke="rgba(17,38,58,.25)"/><g id="cmpN"><path d="M31 9l6 22h-12z" fill="#C27A2C"/><path d="M31 53l6-22h-12z" fill="#11263A" opacity=".35"/></g><text x="31" y="35.5" text-anchor="middle" font-size="9" font-weight="700" fill="#11263A" font-family="Archivo,sans-serif">Entrée</text></svg>
+      <div class="chips" id="chips"></div>
+      <button class="fab" id="fab3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span data-t>Réglages</span></button>
+      <div class="card" id="card3"></div>
+      <div class="loader" id="loader"><div><svg viewBox="0 0 120 90"><path class="ln" d="M8 80V40L60 18l52 22v40H8zM46 80V52h28v28M20 46h12M88 46h12"/></svg><p data-t>Montage de la maquette…</p></div></div>
+      <div class="err" id="err3"><p data-t>Impossible de charger la visionneuse 3D. Rechargez la page ou ouvrez-la dans un navigateur récent.</p></div>
+    </div>
+
+    <div class="view" id="v-plan" role="tabpanel" aria-label="Plan">
+      <svg class="pp" id="plan" role="img" aria-label="Plan coté du rez-de-chaussée"></svg>
+      <div class="zoom"><button id="zin" aria-label="Zoomer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button><button id="zout" aria-label="Dézoomer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg></button><button id="zfit" aria-label="Ajuster à l’écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
+      <button class="fab" id="fabP"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg><span data-t>Calques</span></button>
+      <div class="card" id="cardP"></div>
+    </div>
+
+    <div class="view" id="v-elev" role="tabpanel" aria-label="Élévations et coupes">
+      <button class="fab" id="fabE" style="position:sticky;margin:0 0 12px auto;top:0;z-index:3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 0 0 17c1.2 0 1.6-1 1-2-.7-1.2.1-2.5 1.5-2.5H17a3.5 3.5 0 0 0 3.5-3.5c0-5-3.8-9-8.5-9z"/><circle cx="8" cy="11" r="1.1" fill="currentColor"/><circle cx="11" cy="7.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.1" fill="currentColor"/></svg><span data-t>Style</span></button>
+      <div class="sheets" id="sheets"></div>
+    </div>
+
+    <div class="view" id="v-info" role="tabpanel" aria-label="Données du relevé">
+      <article class="doc" id="doc"></article>
+    </div>
+  </main>
+</div>
+<div class="tip" id="tip"></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Planche agrandie"><div class="lbt" id="lbt"></div><button class="x" id="lbx" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"></script>
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var app=document.getElementById("app");
+var X_ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+function el(tag,a,p){var e=document.createElementNS(NS,tag);if(a)for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function txt(p,x,y,s,cls,extra){var a={x:x,y:y,"class":cls};if(extra)for(var k in extra)a[k]=extra[k];var t=el("text",a,p);t.textContent=L(s);return t;}
+function f2(n){return (Math.round(n*100)/100).toFixed(2).replace(".",",");}
+function yTop(x){return x<=9?4+x/9:4+(18-x)/9;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+
+/* ---------- données ---------- */
+var INFO={
+  entree:{k:"1",t:"Entrée principale",rows:[["Baie","5,00 × 3,50 m"],["Linteau","béton armé"],["Poteaux d’encadrement","0,30 × 0,30 m"]],src:"Mesuré sur photo, ±0,30 m"},
+  local1:{k:"2",t:"Local 1",rows:[["Surface","6,3 m²"],["Intérieur","2,85 × 2,20 m"],["Passage P1","0,75 × 2,10 m"],["Hauteur des murs","2,80 m"]],src:"Mesuré sur photo, ±0,30 m"},
+  local2:{k:"3",t:"Local 2",rows:[["Surface","14,2 m²"],["Intérieur","3,85 × 3,70 m"],["Porte P2","0,90 × 2,10 m"],["Fenêtres","F3 et F4"]],src:"Mesuré sur photo, ±0,30 m"},
+  f1:{k:"4",t:"Fenêtres F1",rows:[["Dimensions","1,30 × 0,60 m"],["Allège","2,90 m"],["Nombre","2, façade d’entrée"]],src:"Mesuré sur photo, ±0,30 m"},
+  f2:{k:"5",t:"Fenêtres F2",rows:[["Dimensions","0,60 × 0,60 m"],["Allège","3,10 m"],["Nombre","2, côté droit"]],src:"Mesuré sur photo, ±0,30 m"},
+  pignon:{k:"6",t:"Pignons",rows:[["Hauteur à l’égout","4,00 m"],["Hauteur au faîtage","5,00 m"],["Pente","11,1 %"]],src:"Dimensions fournies"},
+  dallage:{k:"7",t:"Dallage",rows:[["Surface intérieure","415,4 m²"],["Surface libre","392,8 m²"],["Joints","environ 3 × 3 m"],["Niveau","±0,00"]],src:"Surface calculée"},
+  aciers:{k:"8",t:"Aciers en attente",rows:[["Position","tête des poteaux et pilastres"],["Pilastres latéraux","tous les 6,00 m"],["Usage","future toiture"]],src:"Observé sur photo"},
+  mur:{t:"Mur en parpaings",rows:[["Épaisseur","0,20 m"],["Hauteur","4,00 à 5,00 m"],["Finition","enduit intérieur"]],src:"Épaisseur estimée"},
+  pilastre:{t:"Pilastre béton",rows:[["Section","0,30 × 0,15 m en saillie"],["Entraxe latéral","6,00 m"]],src:"Mesuré sur photo, ±0,30 m"},
+  f3:{t:"Fenêtre F3",rows:[["Dimensions","0,50 × 0,50 m"],["Allège","1,20 m"],["Local","2"]],src:"Mesuré sur photo, ±0,30 m"},
+  f4:{t:"Fenêtre F4",rows:[["Dimensions","0,80 × 0,80 m"],["Allège","1,10 m"],["Local","2"]],src:"Mesuré sur photo, ±0,30 m"},
+  p1:{t:"Passage P1",rows:[["Dimensions","0,75 × 2,10 m"],["Local","1"]],src:"Mesuré sur photo, ±0,30 m"},
+  p2:{t:"Porte P2",rows:[["Dimensions","0,90 × 2,10 m"],["Local","2"]],src:"Mesuré sur photo, ±0,30 m"},
+  cloison:{t:"Cloison des locaux",rows:[["Épaisseur","0,15 m"],["Hauteur","2,80 m"]],src:"Estimé"},
+  hangar:{t:"Hangar",rows:[["Surface libre","392,8 m²"],["Intérieur","17,60 × 23,60 m"],["Hauteur libre","4,00 à 5,00 m"]],src:"Calculé"}
+};
+var LANG="fr";try{LANG=localStorage.getItem("hangar-lang")||"fr";}catch(e){}
+var WO={
+"État actuel du chantier":"Fi tabax bi tollu tey","Maquette 3D":"Maket 3D","Plan":"Plaŋ","Élévations":"Kanam yi","Données":"Xibaar yi",
+"432 m² construits, relevé du 27.10.2026":"432 m² lu ñu tabax, natt bu 27.10.2026","Hangar en parpaings et ossature béton":"Hangar bu bloog ak beton armé",
+"Hauteur à l’égout":"Kawewaay ci cat miir","Hauteur au faîtage":"Kawewaay ci kaw","Surface construite":"Yaatuwaay bu ñu tabax","Surface intérieure":"Yaatuwaay biir",
+"Points de vue":"Fu ñuy xoolee","Perspective":"Gis-gis","Entrée":"Bunt bi","Arrière":"Ginnaaw","Dessus":"Ci kaw","Intérieur":"Biir","Locaux":"Néeg yi",
+"Rendu":"Melo","Réaliste":"Ni mu mel","Maquette blanche":"Maket bu weex","Lumière et coupe":"Leer ak dog","Heure du soleil":"Waxtu jant bi","Coupe horizontale":"Dog bu tëdd","aucune":"dara",
+"Affichage":"Wone","Repères d’information":"Màndargay xibaar","Cotes principales":"Natt yu mag yi","Arêtes des volumes":"Rëddi kër gi","Façade d’entrée":"Kanamu bunt bi",
+"Abords du chantier":"Wetu tabax bi","Silhouette de 1,75 m":"Nit ku 1,75 m","Rotation automatique":"Mu wëndéelu boppam","Exporter":"Génne","Enregistrer une image":"Denc nataal",
+"Calques":"Tànneef","Cotes":"Natt yi","Axes de structure":"Rëddi taxawaay","Joints du dallage":"Rëddi suuf","Surfaces et noms":"Yaatuwaay ak tur","Traits de coupe":"Rëddi dog","Cartouche":"Kartuus",
+"Légende":"Leeral","Mur en parpaings, 0,20 m":"Miir bu bloog, 0,20 m","Poteau ou pilastre béton":"Ponto beton","Baie de fenêtre":"Palanteer","Linteau au-dessus du passage":"Kaw bunt","Trait de coupe":"Rëddu dog",
+"Touchez un mur, une baie ou un local pour afficher ses mesures. Pincez ou utilisez la molette pour zoomer.":"Laal miir, palanteer walla néeg ngir gis ay nattam. Daaj ñaari baaraam walla wëndeel ngir yokk.",
+"Planches":"Nataal yi","Cliquez sur une planche pour l’ouvrir en grand et zoomer dans les détails.":"Bësal ci nataal ngir ubbi ko ci lu mag te gis ay ndeyam.",
+"À propos du relevé":"Ci natt yi","Dimensions générales fournies sur place. Ouvertures, pilastres et locaux positionnés d’après photos du chantier.":"Natt yu mag yi, ñoo ko joxe ci bérab bi. Bunt yi, palanteer yi, ponto yi ak néeg yi, ñu natt leen ci nataali tabax bi.",
+"Glisser pour tourner":"Rëdd ngir wëndeel","Clic droit pour déplacer":"Bësu ndijoor ngir randal","Molette pour zoomer":"Wëndeel ngir yokk","Réglages":"Tànneef","Style":"Melo",
+"Montage de la maquette…":"Maket bi ngi tabaxu…","Impossible de charger la visionneuse 3D. Rechargez la page ou ouvrez-la dans un navigateur récent.":"Maket 3D bi mënul a ubbiku. Yeesalal xët wi walla ubbi ko ci beneen navigatëer.",
+"Style du plan":"Melou plaŋ bi","Automatique":"Moom ci boppam","Suit le thème":"Topp melou app bi","Technique":"Teknik","Noir sur blanc":"Ñuul ci weex","Blueprint":"Blueprint","Bleu d’architecte":"Bulo arsitekt",
+"Présentation":"Wone","Murs pleins et ombres":"Miir yu fees ak ker","Esquisse":"Rëdd ak loxo","Dessiné à la main":"Ñu rëdd ko ak loxo","Minimal":"Yomb","Épuré":"Set",
+"Surface libre 392,8 m²":"Bérab bu wéy 392,8 m²","Dallage béton, joints 3 × 3 m":"Suuf beton, rëdd 3 × 3 m","niveau du dallage":"kawu suuf","Local 1":"Néeg 1","Local 2":"Néeg 2",
+"Entrée 5,00 × 3,50":"Bunt 5,00 × 3,50","17,60 intérieur":"17,60 biir","23,60 intérieur":"23,60 biir","Plan du rez-de-chaussée, état actuel":"Plaŋu suuf, fi mu tollu tey",
+"Ouvertures et locaux relevés sur photos, ±0,30 m":"Bunt ak néeg yi ñu natt ci nataal, ±0,30 m","Échelle graphique":"Natt","Cotes en mètres":"Natt ci meetar","Planche":"Nataal","Date":"Bés","Indice":"Màndarga",
+"B, relevé corrigé":"B, natt bu ñu jubbanti","A3 paysage":"A3 bu tëdd","faîtage":"kaw","égout":"cat miir","dallage":"suuf","faîtage, pignon":"kaw, pignon","côté entrée":"wetu bunt","côté arrière":"wetu ginnaaw",
+"sous linteau":"ci suufu kaw bunt","tête des cloisons":"kawu miir yu ndaw","Parpaings apparents, ossature béton":"Bloog yu feeñ, beton armé","Façade arrière":"Kanamu ginnaaw","Pignon aveugle":"Miir bu amul palanteer",
+"Côté droit":"Wet ndijoor","Deux fenêtres hautes F2":"Ñaari palanteer yu kawe F2","Côté gauche":"Wet càmmoñ","Mur aveugle, locaux à l’intérieur":"Miir bu amul palanteer, néeg yi ci biir",
+"Coupe transversale CT":"Dog ci yaatu CT","Vue vers l’entrée":"Xool bunt bi","Coupe longitudinale CL":"Dog ci guddu CL","À travers les locaux, vue vers le côté gauche":"Mu jaar ci néeg yi, xool wet càmmoñ",
+"Dimensions générales":"Natt yu mag yi","Ouvertures":"Bunt ak palanteer","Précision du relevé":"Dëggu natt yi","Élément":"Lëf","Valeur":"Natt","Source":"Fu mu jóge","Repère":"Màndarga","Emplacement":"Fu mu nekk",
+"Dimensions":"Natt","Allège":"Kawewaay ci suuf","Nombre":"Limu","Local":"Néeg","Intérieur ":"Biir","Surface":"Yaatuwaay","Hauteur des murs":"Kawewaayu miir","Longueur hors tout":"Guddaay","Largeur hors tout":"Yaatuwaay",
+"Hauteur au faîtage (pignons)":"Kawewaay ci kaw (pignon)","Pente des pignons":"Wàcceeku pignon yi","Épaisseur des murs":"Dëngaayu miir yi","Fourni":"Ñu joxe ko","Calculé":"Ñu waññ ko","Estimé":"Ñu xayma ko",
+"Façade d’entrée, au centre":"Kanamu bunt, ci digg bi","Côté droit, partie arrière":"Wet ndijoor, ginnaaw","Local 2, face vers le hangar":"Néeg 2, wet hangar bi","Local 2, face arrière":"Néeg 2, ginnaaw",
+"Passage du local 1":"Buntu néeg 1","Porte du local 2":"Buntu néeg 2","Surface libre du hangar":"Bérab bu wéy ci hangar bi","Volume intérieur":"Bérab biir",
+"Relevé de l’état actuel : murs porteurs en parpaings avec ossature en béton armé, pignons sur les façades de 18 m, dallage béton coulé et deux locaux adossés près de l’entrée. La toiture n’est pas encore posée.":"Natt yi ci fi tabax bi tollu tey: miir yu bloog ak beton armé, ñaari pignon ci kanam yu 18 m, suuf beton ak ñaari néeg yu taq ci bunt bi. Kaw kër gi amagul.",
+"P_PREC1":"Natt yu mag yi (24,00 × 18,00 m, 4,00 m ci cat miir, 5,00 m ci kaw), ñoo ko joxe ci bérab bi. Bunt yi, palanteer yi, ponto yi ak ñaari néeg yi, ñu natt leen ci nataal, te mën nañu juum ba ±0,30 m. Bu baax nga natt leen ak meetar balaa nga leen jëfandikoo ngir devi walla liggéey.",
+"P_PREC2":"Hangar bi amagul kaw. Weñ yu ñuy xaar ñoo génn ci kawu ponto yi. Néeg yi amuñu dàll."
+};
+var FRX={"P_PREC1":"Les dimensions générales (24,00 × 18,00 m, 4,00 m à l’égout, 5,00 m au faîtage) ont été fournies sur place. L’ouverture d’entrée, les fenêtres, les pilastres et les deux locaux ont été positionnés et mesurés sur photos, avec une tolérance estimée de ±0,30 m. Il est conseillé de les vérifier au mètre avant de s’appuyer sur ces plans pour un devis ou des travaux.",
+"P_PREC2":"Le hangar est sans toiture : des aciers en attente dépassent en tête des poteaux et pilastres. Les locaux n’ont pas de dalle visible."};
+function L(s){if(LANG==="wo"&&WO[s]!=null)return WO[s];return FRX[s]!=null?FRX[s]:s;}
+var INFO_WO={
+  entree:{t:"Bunt bu mag bi",rows:[["Ubbeeku","5,00 × 3,50 m"],["Kaw bunt","beton armé"],["Ponto yi","0,30 × 0,30 m"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  local1:{t:"Néeg 1",rows:[["Yaatuwaay","6,3 m²"],["Biir","2,85 × 2,20 m"],["Bunt P1","0,75 × 2,10 m"],["Kawewaayu miir","2,80 m"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  local2:{t:"Néeg 2",rows:[["Yaatuwaay","14,2 m²"],["Biir","3,85 × 3,70 m"],["Bunt P2","0,90 × 2,10 m"],["Palanteer","F3 ak F4"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  f1:{t:"Palanteer F1",rows:[["Natt","1,30 × 0,60 m"],["Kawewaay ci suuf","2,90 m"],["Limu","2, kanamu bunt"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  f2:{t:"Palanteer F2",rows:[["Natt","0,60 × 0,60 m"],["Kawewaay ci suuf","3,10 m"],["Limu","2, wet ndijoor"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  pignon:{t:"Pignon yi",rows:[["Kawewaay ci cat miir","4,00 m"],["Kawewaay ci kaw","5,00 m"],["Wàcceeku","11,1 %"]],src:"Natt yu ñu joxe"},
+  dallage:{t:"Suuf beton",rows:[["Yaatuwaay biir","415,4 m²"],["Bérab bu wéy","392,8 m²"],["Rëdd yi","lu tollu ci 3 × 3 m"],["Tolluwaay","±0,00"]],src:"Ñu waññ ko"},
+  aciers:{t:"Weñ yi ñuy xaar",rows:[["Fu ñu nekk","kawu ponto yi"],["Ponto yi ci wet","6,00 m bu nekk"],["Lu ñu leen di def","kaw kër gi bu ñëw"]],src:"Gis nañu ko ci nataal"},
+  mur:{t:"Miir bu bloog",rows:[["Dëngaay","0,20 m"],["Kawewaay","4,00 ba 5,00 m"],["Ci biir","simoo"]],src:"Ñu xayma dëngaay bi"},
+  pilastre:{t:"Ponto beton",rows:[["Natt","0,30 × 0,15 m"],["Diggante ci wet","6,00 m"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  f3:{t:"Palanteer F3",rows:[["Natt","0,50 × 0,50 m"],["Kawewaay ci suuf","1,20 m"],["Néeg","2"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  f4:{t:"Palanteer F4",rows:[["Natt","0,80 × 0,80 m"],["Kawewaay ci suuf","1,10 m"],["Néeg","2"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  p1:{t:"Bunt P1",rows:[["Natt","0,75 × 2,10 m"],["Néeg","1"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  p2:{t:"Bunt P2",rows:[["Natt","0,90 × 2,10 m"],["Néeg","2"]],src:"Ñu natt ko ci nataal, ±0,30 m"},
+  cloison:{t:"Miir yu ndaw yi",rows:[["Dëngaay","0,15 m"],["Kawewaay","2,80 m"]],src:"Ñu xayma ko"},
+  hangar:{t:"Hangar",rows:[["Bérab bu wéy","392,8 m²"],["Biir","17,60 × 23,60 m"],["Kawewaay","4,00 ba 5,00 m"]],src:"Ñu waññ ko"}
+};
+function info(k){var d=INFO[k];if(!d)return null;if(LANG==="wo"&&INFO_WO[k])return {k:d.k,t:INFO_WO[k].t,rows:INFO_WO[k].rows,src:INFO_WO[k].src};return d;}
+
+function cardHTML(key){var d=info(key);if(!d)return "";var h='<button class="x" aria-label="Fermer">'+X_ICON+'</button><h3>'+(d.k?'<span class="k">'+d.k+'</span>':'')+esc(d.t)+'</h3><ul>';
+  d.rows.forEach(function(r){h+='<li><span>'+esc(r[0])+'</span><b>'+esc(r[1])+'</b></li>';});return h+'</ul><div class="src">'+esc(d.src)+'</div>';}
+function showCard(card,key,onClose){if(!key){card.classList.remove("show");return;}card.innerHTML=cardHTML(key);card.classList.remove("show");void card.offsetWidth;card.classList.add("show");
+  card.querySelector(".x").onclick=function(){card.classList.remove("show");if(onClose)onClose();};}
+
+/* ---------- motifs SVG ---------- */
+var PAT=false;function patterns(){if(PAT)return;PAT=true;var gs=el("svg",{width:0,height:0,"aria-hidden":"true",style:"position:absolute;width:0;height:0;overflow:hidden"});document.body.insertBefore(gs,document.body.firstChild);var d=el("defs",{},gs);
+  var fs=el("filter",{id:"psh",x:"-10%",y:"-10%",width:"130%",height:"130%"},d);el("feDropShadow",{dx:3,dy:4,stdDeviation:4,"flood-color":"#2B2118","flood-opacity":".38"},fs);
+  var fk=el("filter",{id:"psk",x:"-2%",y:"-2%",width:"104%",height:"104%"},d);el("feTurbulence",{type:"fractalNoise",baseFrequency:"0.035",numOctaves:"2",seed:"4",result:"n"},fk);el("feDisplacementMap",{"in":"SourceGraphic",in2:"n",scale:"3.2",xChannelSelector:"R",yChannelSelector:"G"},fk);
+  var p=el("pattern",{id:"ph",width:7,height:7,patternUnits:"userSpaceOnUse",patternTransform:"rotate(45)"},d);el("rect",{width:7,height:7,"class":"hb"},p);el("line",{x1:0,y1:0,x2:0,y2:7,"class":"hl"},p);
+  p=el("pattern",{id:"ph2",width:4.5,height:4.5,patternUnits:"userSpaceOnUse",patternTransform:"rotate(-45)"},d);el("rect",{width:4.5,height:4.5,"class":"hb"},p);el("line",{x1:0,y1:0,x2:0,y2:4.5,"class":"hl"},p);
+  p=el("pattern",{id:"pb",width:24,height:12,patternUnits:"userSpaceOnUse"},d);el("rect",{width:24,height:12,"class":"bb"},p);
+  [[0,0,24,0],[0,6,24,6],[0,0,0,6],[12,0,12,6],[6,6,6,12],[18,6,18,12]].forEach(function(l){el("line",{x1:l[0],y1:l[1],x2:l[2],y2:l[3],"class":"bl"},p);});
+  p=el("pattern",{id:"pe",width:14,height:14,patternUnits:"userSpaceOnUse"},d);el("rect",{width:14,height:14,"class":"eb"},p);el("path",{d:"M0 14 L7 7 M7 14 L14 7",  "class":"el"},p);
+  p=el("pattern",{id:"ps",width:12,height:12,patternUnits:"userSpaceOnUse"},d);el("rect",{width:12,height:12,"class":"sb"},p);el("circle",{cx:3,cy:3,r:.9,"class":"sd"},p);el("circle",{cx:9,cy:8,r:.7,"class":"sd"},p);el("path",{d:"M6 10l1.5-2.5 1.5 2.5z","class":"sd"},p);
+}
+function dimH(g,x1,x2,y,label,ext){el("line",{x1:x1,y1:y,x2:x2,y2:y,"class":"pp-dim"},g);
+  [x1,x2].forEach(function(x){el("line",{x1:x-4,y1:y+4,x2:x+4,y2:y-4,"class":"pp-tick"},g);if(ext!=null)el("line",{x1:x,y1:ext+(y>ext?3:-3),x2:x,y2:y+(y>ext?6:-6),"class":"pp-ext"},g);});
+  if(label)txt(g,(x1+x2)/2,y-5,label,"pp-dimt",{"text-anchor":"middle"});}
+function dimV(g,y1,y2,x,label,ext){el("line",{x1:x,y1:y1,x2:x,y2:y2,"class":"pp-dim"},g);
+  [y1,y2].forEach(function(y){el("line",{x1:x-4,y1:y+4,x2:x+4,y2:y-4,"class":"pp-tick"},g);if(ext!=null)el("line",{x1:ext+(x>ext?3:-3),y1:y,x2:x+(x>ext?6:-6),y2:y,"class":"pp-ext"},g);});
+  if(label){var cx=x-5,cy=(y1+y2)/2;txt(g,cx,cy,label,"pp-dimt",{"text-anchor":"middle",transform:"rotate(-90 "+cx+" "+cy+")"});}}
+function chainH(g,v,c,y,ext,min){for(var i=0;i<v.length-1;i++){var d=v[i+1]-v[i];dimH(g,c(v[i]),c(v[i+1]),y,d>=(min||0)?f2(d):"",ext);}}
+function chainV(g,v,c,x,ext,min){for(var i=0;i<v.length-1;i++){var d=v[i+1]-v[i];dimV(g,c(v[i]),c(v[i+1]),x,d>=(min||0)?f2(d):"",ext);}}
+function bubble(g,x,y,s){el("circle",{cx:x,cy:y,r:14,"class":"pp-bub"},g);txt(g,x,y+5,s,"pp-bubt",{"text-anchor":"middle"});}
+function level(g,x,y,lab,sub){el("path",{d:"M"+(x-7)+" "+(y-11)+"H"+(x+7)+"L"+x+" "+y+"Z","class":"pp-lvl"},g);el("line",{x1:x-12,y1:y,x2:x+118,y2:y,"class":"pp-lvl"},g);
+  txt(g,x+12,y-5,lab,"pp-lvlt");if(sub)txt(g,x+54,y-5,sub,"pp-lvls");}
+
+/* ---------- PLAN ---------- */
+var S=30;
+function buildPlan(svg){
+  var X=function(x){return 150+x*S;},Z=function(z){return 150+(24-z)*S;};
+  svg.setAttribute("viewBox","0 0 860 1200");patterns(svg);
+  el("rect",{x:-2000,y:-2000,width:5000,height:5000,"class":"pp-paper"},svg);
+  el("rect",{x:14,y:14,width:832,height:1172,"class":"pp-frame"},svg);el("rect",{x:20,y:20,width:820,height:1160,"class":"pp-frame2"},svg);
+  function G(n){return el("g",{"data-layer":n},svg);}
+  var gF=G("floor"),gJ=G("joints"),gRF=G("roomfloor"),gA=G("axes"),gW=G("walls"),gL=G("labels"),gD=G("dims"),gS=G("sections"),gC=G("cart");
+  function R(x0,x1,z0,z1,cls,g,a){var o={x:X(x0),y:Z(z1),width:(x1-x0)*S,height:(z1-z0)*S,"class":cls};if(a)for(var k in a)o[k]=a[k];return el("rect",o,g);}
+  function T(g,tip){return el("g",{"data-tip":tip},g);}
+  var hall=T(gF,"hangar");R(0.2,17.8,0.2,23.8,"pp-floor",hall);
+  for(var x=3;x<18;x+=3)el("line",{x1:X(x),y1:Z(23.8),x2:X(x),y2:Z(0.2),"class":"pp-joint"},gJ);
+  for(var z=3;z<24;z+=3)el("line",{x1:X(0.2),y1:Z(z),x2:X(17.8),y2:Z(z),"class":"pp-joint"},gJ);
+  R(0.2,3.05,0.2,2.4,"pp-floor",T(gRF,"local1"));R(0.2,4.05,2.55,6.25,"pp-floor",T(gRF,"local2"));
+  /* axes */
+  [[0,"A"],[6,"B"],[12,"C"],[18,"D"],[24,"E"]].forEach(function(a){var y=Z(a[0]);el("line",{x1:X(0)-96,y1:y,x2:X(18)+108,y2:y,"class":"pp-axis"},gA);bubble(gA,X(0)-112,y,a[1]);bubble(gA,X(18)+124,y,a[1]);});
+  [[0,"1"],[9,"2"],[18,"3"]].forEach(function(a){var xx=X(a[0]);el("line",{x1:xx,y1:Z(24)-110,x2:xx,y2:Z(0)+12,"class":"pp-axis"},gA);bubble(gA,xx,Z(24)-124,a[1]);});
+  /* murs */
+  var wl=T(gW,"mur");
+  [[0,6.5,0,0.2],[11.5,18,0,0.2],[0,18,23.8,24],[0,0.2,0.2,23.8],[17.8,18,0.2,23.8]].forEach(function(r){R(r[0],r[1],r[2],r[3],"pp-wall",wl);});
+  var cc=T(gW,"pilastre");
+  [[0,0.3,0,0.3],[6.2,6.5,0,0.3],[11.5,11.8,0,0.3],[17.7,18,0,0.3],[0,0.3,23.7,24],[17.7,18,23.7,24],[5.05,5.35,23.65,24],[12.65,12.95,23.65,24]].forEach(function(r){R(r[0],r[1],r[2],r[3],"pp-conc",cc);});
+  [6,12,18].forEach(function(c){R(0,0.35,c-0.15,c+0.15,"pp-conc",cc);R(17.65,18,c-0.15,c+0.15,"pp-conc",cc);});
+  var pt=T(gW,"cloison");
+  [[3.05,3.2,0.2,1.55],[3.05,3.2,2.3,2.4],[0.2,4.2,2.4,2.55],[4.05,4.2,2.55,2.75],[4.05,4.2,3.65,4.9],[4.05,4.2,5.4,6.4],[0.2,1.75,6.25,6.4],[2.55,4.05,6.25,6.4]].forEach(function(r){R(r[0],r[1],r[2],r[3],"pp-part",pt);});
+  function win(x0,x1,z0,z1,horiz,key){var g=T(gW,key);R(x0,x1,z0,z1,"pp-win",g);
+    if(horiz){el("line",{x1:X(x0),y1:Z((z0+z1)/2),x2:X(x1),y2:Z((z0+z1)/2),"class":"pp-glass"},g);el("line",{x1:X(x0)-2,y1:Z(z1),x2:X(x1)+2,y2:Z(z1),"class":"pp-hid"},g);}
+    else{el("line",{x1:X((x0+x1)/2),y1:Z(z0),x2:X((x0+x1)/2),y2:Z(z1),"class":"pp-glass"},g);}}
+  win(3.85,5.15,0,0.2,true,"f1");win(12.85,14.15,0,0.2,true,"f1");
+  win(17.8,18,12.2,12.8,false,"f2");win(17.8,18,18.2,18.8,false,"f2");
+  win(4.05,4.2,4.9,5.4,false,"f3");win(1.75,2.55,6.25,6.4,true,"f4");
+  var en=T(gW,"entree");el("rect",{x:X(6.5),y:Z(0.2),width:5*S,height:0.2*S,fill:"transparent"},en);
+  el("line",{x1:X(6.5),y1:Z(0.04),x2:X(11.5),y2:Z(0.04),"class":"pp-hid"},en);el("line",{x1:X(6.5),y1:Z(0.16),x2:X(11.5),y2:Z(0.16),"class":"pp-hid"},en);
+  var p1=T(gW,"p1");el("rect",{x:X(3.05),y:Z(2.3),width:0.15*S,height:0.75*S,fill:"transparent"},p1);el("line",{x1:X(3.05),y1:Z(1.55),x2:X(3.05),y2:Z(2.3),"class":"pp-hid"},p1);el("line",{x1:X(3.2),y1:Z(1.55),x2:X(3.2),y2:Z(2.3),"class":"pp-hid"},p1);
+  var p2=T(gW,"p2");el("rect",{x:X(4.05),y:Z(3.65),width:0.15*S,height:0.9*S,fill:"transparent"},p2);el("line",{x1:X(4.05),y1:Z(2.75),x2:X(4.05),y2:Z(3.65),"class":"pp-hid"},p2);el("line",{x1:X(4.2),y1:Z(2.75),x2:X(4.2),y2:Z(3.65),"class":"pp-hid"},p2);
+  /* étiquettes */
+  var cx=X(10.6),cy=Z(14.2);
+  txt(gL,cx,cy,"Hangar","pp-room",{"text-anchor":"middle"});
+  txt(gL,cx,cy+19,"Surface libre 392,8 m²","pp-area",{"text-anchor":"middle"});
+  txt(gL,cx,cy+35,"Dallage béton, joints 3 × 3 m","pp-area",{"text-anchor":"middle"});
+  level(gL,X(13.4),Z(9.2),"±0,00","niveau du dallage");
+  txt(gL,X(1.55),Z(1.78),"Local 1","pp-roomS",{"text-anchor":"middle"});txt(gL,X(1.55),Z(1.78)+14,"6,3 m²","pp-area",{"text-anchor":"middle"});
+  txt(gL,X(2.12),Z(4.5),"Local 2","pp-roomS",{"text-anchor":"middle"});txt(gL,X(2.12),Z(4.5)+15,"14,2 m²","pp-area",{"text-anchor":"middle"});
+  function tag(x,y,s){el("rect",{x:x-15,y:y-10,width:30,height:17,rx:8.5,"class":"pp-tagb"},gL);txt(gL,x,y+3,s,"pp-tag",{"text-anchor":"middle"});}
+  tag(X(4.5),Z(0.2)-16,"F1");tag(X(13.5),Z(0.2)-16,"F1");tag(X(17.8)-26,Z(12.5),"F2");tag(X(17.8)-26,Z(18.5),"F2");tag(X(4.2)+24,Z(5.15),"F3");tag(X(2.15),Z(6.4)-16,"F4");
+  tag(X(3.2)+22,Z(1.92),"P1");tag(X(4.2)+24,Z(3.2),"P2");
+  el("path",{d:"M"+X(9)+" "+(Z(0)+4)+"V"+Z(2.1),"class":"pp-arrow"},gL);el("path",{d:"M"+(X(9)-7)+" "+(Z(2.1)+10)+"L"+X(9)+" "+Z(2.1)+"L"+(X(9)+7)+" "+(Z(2.1)+10)+"Z","class":"pp-arrowh"},gL);
+  txt(gL,X(9),Z(2.1)-10,"Entrée 5,00 × 3,50","pp-area",{"text-anchor":"middle"});
+  /* cotes */
+  chainH(gD,[0,5.2,12.8,18],X,Z(24)-34,Z(24));chainH(gD,[0,9,18],X,Z(24)-62,Z(24)-34);dimH(gD,X(0),X(18),Z(24)-90,"18,00",Z(24)-62);
+  chainH(gD,[0,3.85,5.15,6.5,11.5,12.85,14.15,18],X,Z(0)+34,Z(0));chainH(gD,[0,6.5,11.5,18],X,Z(0)+62,Z(0)+34);dimH(gD,X(0),X(18),Z(0)+90,"18,00",Z(0)+62);
+  chainV(gD,[0,6,12,18,24],Z,X(0)-34,X(0));dimV(gD,Z(0),Z(24),X(0)-62,"24,00",X(0)-34);
+  chainV(gD,[0,12.2,12.8,18.2,18.8,24],Z,X(18)+34,X(18),1.2);chainV(gD,[0,6,12,18,24],Z,X(18)+62,X(18)+34);dimV(gD,Z(0),Z(24),X(18)+90,"24,00",X(18)+62);
+  dimH(gD,X(0.2),X(17.8),Z(21.4),"17,60 intérieur");dimV(gD,Z(0.2),Z(23.8),X(15.6),"23,60 intérieur");
+  dimH(gD,X(0.2),X(4.05),Z(6.25)+12,"3,85");dimV(gD,Z(2.55),Z(6.25),X(4.05)-12,"3,70");
+  dimH(gD,X(0.2),X(3.05),Z(0.2)-12,"2,85");dimV(gD,Z(0.2),Z(2.4),X(3.05)-12,"2,20");
+  /* traits de coupe */
+  var zc=10,yA=Z(zc);
+  el("line",{x1:X(0)-20,y1:yA,x2:X(18)+20,y2:yA,"class":"pp-secl"},gS);
+  [[X(0)-96,X(0)-20],[X(18)+20,X(18)+108]].forEach(function(s,i){el("line",{x1:s[0],y1:yA,x2:s[1],y2:yA,"class":"pp-sec"},gS);var ax=i?s[1]:s[0];
+    el("path",{d:"M"+(ax-9)+" "+(yA+6)+"L"+(ax+9)+" "+(yA+6)+"L"+ax+" "+(yA+22)+"Z","class":"pp-secb"},gS);
+    el("circle",{cx:ax+(i?20:-20),cy:yA,r:13,"class":"pp-secb"},gS);txt(gS,ax+(i?20:-20),yA+4,"CT","pp-sect",{"text-anchor":"middle"});});
+  var xb=X(3.6);
+  el("line",{x1:xb,y1:Z(24)-20,x2:xb,y2:Z(0)+20,"class":"pp-secl"},gS);
+  [[Z(24)-104,Z(24)-20],[Z(0)+20,Z(0)+112]].forEach(function(s,i){el("line",{x1:xb,y1:s[0],x2:xb,y2:s[1],"class":"pp-sec"},gS);var ay=i?s[1]:s[0];
+    el("path",{d:"M"+(xb-6)+" "+(ay-9)+"L"+(xb-6)+" "+(ay+9)+"L"+(xb-22)+" "+ay+"Z","class":"pp-secb"},gS);
+    el("circle",{cx:xb+18,cy:ay,r:13,"class":"pp-secb"},gS);txt(gS,xb+18,ay+4,"CL","pp-sect",{"text-anchor":"middle"});});
+  /* cartouche */
+  var y0=1052;el("rect",{x:40,y:y0,width:780,height:112,"class":"pp-frame"},gC);
+  el("line",{x1:360,y1:y0,x2:360,y2:y0+112,"class":"pp-frame2"},gC);el("line",{x1:560,y1:y0,x2:560,y2:y0+112,"class":"pp-frame2"},gC);el("line",{x1:690,y1:y0,x2:690,y2:y0+112,"class":"pp-frame2"},gC);
+  el("line",{x1:560,y1:y0+56,x2:820,y2:y0+56,"class":"pp-frame2"},gC);
+  txt(gC,58,y0+42,"Hangar 24 × 18 m","pp-ctb");txt(gC,58,y0+66,"Plan du rez-de-chaussée, état actuel","pp-ct");txt(gC,58,y0+88,"Ouvertures et locaux relevés sur photos, ±0,30 m","pp-ctm");
+  txt(gC,378,y0+26,"Échelle graphique","pp-ctm");
+  for(var i=0;i<5;i++)el("rect",{x:378+i*30,y:y0+40,width:30,height:7,"class":i%2?"pp-sb0":"pp-sb1"},gC);
+  txt(gC,378,y0+64,"0","pp-ct",{"text-anchor":"middle"});txt(gC,528,y0+64,"5 m","pp-ct",{"text-anchor":"middle"});txt(gC,378,y0+92,"Cotes en mètres","pp-ctm");
+  txt(gC,576,y0+24,"Planche","pp-ctm");txt(gC,576,y0+46,"A-01","pp-ct",{"font-weight":"700"});
+  txt(gC,706,y0+24,"Date","pp-ctm");txt(gC,706,y0+46,"27.10.2026","pp-ct",{"font-weight":"700"});
+  txt(gC,576,y0+80,"Indice","pp-ctm");txt(gC,576,y0+100,"B, relevé corrigé","pp-ct");
+  txt(gC,706,y0+80,"Format","pp-ctm");txt(gC,706,y0+100,"A3 paysage","pp-ct");
+}
+
+/* ---------- ÉLÉVATIONS ET COUPES ---------- */
+function sheetBase(svg,len,title){var w=110+len*S+200,h=318;svg.setAttribute("viewBox","0 0 "+w+" "+h);patterns(svg);
+  el("rect",{x:0,y:0,width:w,height:h,"class":"pp-paper"},svg);
+  var E=function(u){return 110+u*S;},Y=function(y){return 62+(5.4-y)*S;};
+  el("rect",{x:E(-2),y:Y(0),width:(len+4)*S,height:22,"class":"ev-earth"},svg);
+  return {E:E,Y:Y,w:w,g:el("g",{},svg)};}
+function groundLine(svg,E,Y,len){el("line",{x1:E(-2),y1:Y(0),x2:E(len+2),y2:Y(0),"class":"ev-ground"},svg);}
+function steel(g,E,Y,u,y){for(var i=0;i<3;i++){var xx=E(u)-4+i*4;el("line",{x1:xx,y1:Y(y),x2:xx+(i-1)*1.5,y2:Y(y+0.38),"class":"ev-steel"},g);}}
+function levels(g,E,Y,len,list){var x=E(len)+44;list.forEach(function(l){var u=(l[3]!=null?l[3]:len),xa=Math.max(E(u),E(len-u)>E(u)?E(u):E(u));el("line",{x1:xa+4,y1:Y(l[0]),x2:x-14,y2:Y(l[0]),"class":"ev-ext"},g);level(g,x,Y(l[0]),l[1],l[2]);});}
+function pts(a,E,Y){return a.map(function(p){return E(p[0])+","+Y(p[1]);}).join(" ");}
+
+function elevFront(svg){var b=sheetBase(svg,18),E=b.E,Y=b.Y,g=b.g;
+  el("polygon",{points:pts([[0,0],[6.5,0],[6.5,3.5],[11.5,3.5],[11.5,0],[18,0],[18,4],[9,5],[0,4]],E,Y),"class":"ev-blk"},g);
+  el("rect",{x:E(6.5),y:Y(3.5),width:5*S,height:3.5*S,"class":"ev-void"},g);
+  el("polygon",{points:pts([[6.5,0],[6.5,3.5],[11.5,3.5],[11.5,0]],E,Y),"class":"ev-thin"},g);
+  el("line",{x1:E(6.5),y1:Y(0.9),x2:E(11.5),y2:Y(0.9),"class":"ev-joint"},g);
+  [[0,0.3],[6.2,6.5],[11.5,11.8],[17.7,18]].forEach(function(c){var t=Math.min(yTop(c[0]),yTop(c[1]));el("rect",{x:E(c[0]),y:Y(t),width:(c[1]-c[0])*S,height:t*S,"class":"ev-conc"},g);steel(g,E,Y,(c[0]+c[1])/2,t);});
+  el("rect",{x:E(6.2),y:Y(3.85),width:5.6*S,height:0.35*S,"class":"ev-conc"},g);
+  el("polygon",{points:pts([[0,4],[9,5],[18,4],[18,3.7],[9,4.7],[0,3.7]],E,Y),"class":"ev-conc"},g);
+  [[3.85,5.15],[12.85,14.15]].forEach(function(w){el("rect",{x:E(w[0]),y:Y(3.5),width:(w[1]-w[0])*S,height:0.6*S,"class":"ev-void"},g);el("line",{x1:E(w[0])-3,y1:Y(2.9),x2:E(w[1])+3,y2:Y(2.9),"class":"ev-sill"},g);
+    txt(g,(E(w[0])+E(w[1]))/2,Y(2.9)+15,"F1","pp-tag",{"text-anchor":"middle"});});
+  groundLine(svg,E,Y,18);
+  var d=el("g",{},svg);
+  chainV(d,[0,2.9,3.5,4],Y,E(0)-30,E(0),0.55);dimV(d,Y(0),Y(5),E(0)-62,"5,00");
+  el("line",{x1:E(0)-66,y1:Y(5),x2:E(9),y2:Y(5),"class":"ev-ext"},d);
+  dimV(d,Y(0),Y(3.5),E(9)+16,"3,50");
+  chainH(d,[0,3.85,5.15,6.5,11.5,12.85,14.15,18],E,Y(0)+40,Y(0)+22);dimH(d,E(0),E(18),Y(0)+68,"18,00",Y(0)+40);
+  levels(d,E,Y,18,[[5,"+5,00","faîtage",9],[4,"+4,00","égout"],[0,"±0,00","dallage"]]);
+}
+function elevBack(svg){var b=sheetBase(svg,18),E=function(x){return b.E(18-x);},Y=b.Y,g=b.g;
+  el("polygon",{points:pts([[0,0],[18,0],[18,4],[9,5],[0,4]],E,Y),"class":"ev-render"},g);
+  el("line",{x1:E(0),y1:Y(2),x2:E(18),y2:Y(2),"class":"ev-joint"},g);
+  [9].forEach(function(x){el("line",{x1:E(x),y1:Y(0),x2:E(x),y2:Y(5),"class":"ev-joint"},g);});
+  [[0.15,4],[5.2,yTop(5.2)],[12.8,yTop(12.8)],[17.85,4]].forEach(function(p){steel(g,E,Y,p[0],p[1]);});
+  groundLine(svg,b.E,Y,18);
+  var d=el("g",{},svg);dimV(d,Y(0),Y(4),b.E(0)-30,"4,00",b.E(0));dimV(d,Y(0),Y(5),b.E(0)-62,"5,00");el("line",{x1:b.E(0)-66,y1:Y(5),x2:b.E(9),y2:Y(5),"class":"ev-ext"},d);
+  chainH(d,[0,5.2,12.8,18],b.E,Y(0)+40,Y(0)+22);dimH(d,b.E(0),b.E(18),Y(0)+68,"18,00",Y(0)+40);
+  levels(d,b.E,Y,18,[[5,"+5,00","faîtage",9],[4,"+4,00","égout"],[0,"±0,00",null]]);
+}
+function elevSide(svg,right){var b=sheetBase(svg,24),E=b.E,Y=b.Y,g=b.g;
+  el("rect",{x:E(0),y:Y(5),width:0.2*S,height:5*S,"class":"ev-render"},g);el("rect",{x:E(23.8),y:Y(5),width:0.2*S,height:5*S,"class":"ev-render"},g);
+  el("rect",{x:E(0),y:Y(4),width:24*S,height:4*S,"class":"ev-render"},g);
+  el("line",{x1:E(0),y1:Y(2),x2:E(24),y2:Y(2),"class":"ev-joint"},g);
+  [6,12,18].forEach(function(u){el("line",{x1:E(u),y1:Y(0),x2:E(u),y2:Y(4),"class":"ev-joint"},g);steel(g,E,Y,u,4);});steel(g,E,Y,0.15,5);steel(g,E,Y,23.85,5);
+  if(right){[12.5,18.5].forEach(function(w){el("rect",{x:E(w-0.3),y:Y(3.7),width:0.6*S,height:0.6*S,"class":"ev-void"},g);el("line",{x1:E(w-0.3)-3,y1:Y(3.1),x2:E(w+0.3)+3,y2:Y(3.1),"class":"ev-sill"},g);
+    txt(g,E(w),Y(3.1)+15,"F2","pp-tag",{"text-anchor":"middle"});});}
+  groundLine(svg,E,Y,24);
+  var d=el("g",{},svg);
+  if(right){chainV(d,[0,3.1,3.7,4],Y,E(0)-30,E(0),0.5);chainH(d,[0,12.2,12.8,18.2,18.8,24],E,Y(0)+40,Y(0)+22,1.2);}
+  else{dimV(d,Y(0),Y(4),E(0)-30,"4,00",E(0));chainH(d,[0,6,12,18,24],E,Y(0)+40,Y(0)+22);}
+  dimV(d,Y(0),Y(5),E(0)-62,"5,00");el("line",{x1:E(0)-66,y1:Y(5),x2:E(0),y2:Y(5),"class":"ev-ext"},d);
+  dimH(d,E(0),E(24),Y(0)+68,"24,00",Y(0)+40);
+  levels(d,E,Y,24,[[5,"+5,00","faîtage, pignon",24],[4,"+4,00","égout"],[0,"±0,00",null]]);
+  txt(d,E(0.1),Y(0)-8,right?"côté entrée":"côté arrière","pp-ctm");txt(d,E(23.9),Y(0)-8,right?"côté arrière":"côté entrée","pp-ctm",{"text-anchor":"end"});
+}
+function secT(svg){var b=sheetBase(svg,18),E=function(x){return b.E(18-x);},Y=b.Y,g=b.g;
+  el("polygon",{points:pts([[0,0],[6.5,0],[6.5,3.5],[11.5,3.5],[11.5,0],[18,0],[18,4],[9,5],[0,4]],E,Y),"class":"ev-face"},g);
+  el("rect",{x:E(11.5),y:Y(3.5),width:5*S,height:3.5*S,"class":"ev-void"},g);
+  [[3.85,5.15],[12.85,14.15]].forEach(function(w){el("rect",{x:E(w[1]),y:Y(3.5),width:(w[1]-w[0])*S,height:0.6*S,"class":"ev-void"},g);});
+  [[6.2,6.5],[11.5,11.8]].forEach(function(c){el("rect",{x:E(c[1]),y:Y(3.5),width:0.3*S,height:3.5*S,"class":"ev-thin"},g);});
+  el("rect",{x:E(11.8),y:Y(3.85),width:5.6*S,height:0.35*S,"class":"ev-thin"},g);
+  el("rect",{x:E(17.8),y:Y(4),width:0.15*S,height:4*S,"class":"ev-face"},g);
+  el("polygon",{points:pts([[0.2,0],[4.2,0],[4.2,2.8],[0.2,2.8]],E,Y),"class":"ev-face"},g);
+  el("rect",{x:E(2.55),y:Y(1.9),width:0.8*S,height:0.8*S,"class":"ev-void"},g);txt(g,E(2.15),Y(1.1)+15,"F4","pp-tag",{"text-anchor":"middle"});
+  txt(g,E(2.2),Y(2.2),"Local 2","pp-tag",{"text-anchor":"middle"});
+  el("rect",{x:E(18),y:Y(4),width:0.2*S,height:4*S,"class":"ev-cut"},g);el("rect",{x:E(0.2),y:Y(4),width:0.2*S,height:4*S,"class":"ev-cut"},g);
+  el("rect",{x:E(18),y:Y(0),width:18*S,height:0.15*S,"class":"ev-slab"},g);
+  steel(g,E,Y,0.1,4);steel(g,E,Y,17.9,4);
+  groundLine(svg,b.E,Y,18);
+  var d=el("g",{},svg);dimV(d,Y(0),Y(4),b.E(0)-30,"4,00",b.E(0));dimV(d,Y(0),Y(5),b.E(0)-62,"5,00");el("line",{x1:b.E(0)-66,y1:Y(5),x2:b.E(9),y2:Y(5),"class":"ev-ext"},d);
+  dimV(d,Y(0),Y(2.8),b.E(13.8)-14,"2,80");dimV(d,Y(0),Y(3.5),b.E(9),"3,50");
+  dimH(d,b.E(0.2),b.E(17.8),Y(0)+40,"17,60",Y(0)+22);dimH(d,b.E(0),b.E(18),Y(0)+68,"18,00",Y(0)+40);
+  levels(d,b.E,Y,18,[[5,"+5,00","faîtage",9],[4,"+4,00","égout"],[3.5,"+3,50","sous linteau",11.5],[0,"±0,00","dallage"]]);
+}
+function secL(svg){var b=sheetBase(svg,24),E=b.E,Y=b.Y,g=b.g;
+  el("rect",{x:E(0.2),y:Y(4),width:23.6*S,height:4*S,"class":"ev-face"},g);
+  el("line",{x1:E(0.2),y1:Y(2),x2:E(23.8),y2:Y(2),"class":"ev-joint"},g);
+  [6,12,18].forEach(function(u){el("rect",{x:E(u-0.15),y:Y(4),width:0.3*S,height:4*S,"class":"ev-face"},g);});
+  el("polygon",{points:pts([[0.2,0],[2.4,0],[2.4,2.8],[0.2,2.8]],E,Y),"class":"ev-face"},g);
+  el("rect",{x:E(1.55),y:Y(2.1),width:0.75*S,height:2.1*S,"class":"ev-void"},g);txt(g,E(1.92),Y(2.1)-6,"P1","pp-tag",{"text-anchor":"middle"});
+  txt(g,E(0.85),Y(1.4),"Local 1","pp-tag",{"text-anchor":"middle"});txt(g,E(4.4),Y(1.4),"Local 2","pp-tag",{"text-anchor":"middle"});
+  el("rect",{x:E(0),y:Y(4.4),width:0.2*S,height:4.4*S,"class":"ev-cut"},g);el("rect",{x:E(23.8),y:Y(4.4),width:0.2*S,height:4.4*S,"class":"ev-cut"},g);
+  el("rect",{x:E(2.4),y:Y(2.8),width:0.15*S,height:2.8*S,"class":"ev-cut"},g);el("rect",{x:E(6.25),y:Y(2.8),width:0.15*S,height:2.8*S,"class":"ev-cut"},g);
+  el("rect",{x:E(0),y:Y(0),width:24*S,height:0.15*S,"class":"ev-slab"},g);
+  [6,12,18].forEach(function(u){steel(g,E,Y,u,4);});steel(g,E,Y,0.1,4.4);steel(g,E,Y,23.9,4.4);
+  groundLine(svg,E,Y,24);
+  var d=el("g",{},svg);dimV(d,Y(0),Y(4.4),E(0)-30,"4,40",E(0));
+  dimV(d,Y(0),Y(2.8),E(6.4)+16,"2,80");
+  chainH(d,[0.2,2.4,2.55,6.25,6.4,12,18,23.8],E,Y(0)+40,Y(0)+22,1);dimH(d,E(0),E(24),Y(0)+68,"24,00",Y(0)+40);
+  levels(d,E,Y,24,[[4,"+4,00","égout"],[2.8,"+2,80","tête des cloisons",6.4],[0,"±0,00","dallage"]]);
+}
+var SHEETS=[
+  {id:"s-front",t:"Façade d’entrée",s:"Parpaings apparents, ossature béton",f:elevFront},
+  {id:"s-back",t:"Façade arrière",s:"Pignon aveugle",f:elevBack},
+  {id:"s-right",t:"Côté droit",s:"Deux fenêtres hautes F2",f:function(s){elevSide(s,true);},wide:true},
+  {id:"s-left",t:"Côté gauche",s:"Mur aveugle, locaux à l’intérieur",f:function(s){elevSide(s,false);},wide:true},
+  {id:"s-ct",t:"Coupe transversale CT",s:"Vue vers l’entrée",f:secT,wide:true},
+  {id:"s-cl",t:"Coupe longitudinale CL",s:"À travers les locaux, vue vers le côté gauche",f:secL,wide:true}
+];
+
+/* ---------- zoom et déplacement ---------- */
+function PanZoom(svg,opts){opts=opts||{};var bv=svg.viewBox.baseVal,base={x:bv.x,y:bv.y,w:bv.width,h:bv.height},v={x:0,y:0,w:1,h:1};
+  function apply(){svg.setAttribute("viewBox",v.x+" "+v.y+" "+v.w+" "+v.h);}
+  function fit(){var r=svg.getBoundingClientRect();if(!r.width||!r.height)return;var ra=r.width/r.height,ba=base.w/base.h,pad=1.03;
+    if(ra>ba){v.h=base.h*pad;v.w=v.h*ra;}else{v.w=base.w*pad;v.h=v.w/ra;}v.x=base.x+base.w/2-v.w/2;v.y=base.y+base.h/2-v.h/2;apply();}
+  function toSvg(cx,cy){var r=svg.getBoundingClientRect();return {x:v.x+(cx-r.left)/r.width*v.w,y:v.y+(cy-r.top)/r.height*v.h};}
+  function zoomAt(cx,cy,f){var nw=Math.min(base.w*2,Math.max(base.w/14,v.w*f));f=nw/v.w;var p=toSvg(cx,cy);v.x=p.x-(p.x-v.x)*f;v.y=p.y-(p.y-v.y)*f;v.w*=f;v.h*=f;apply();}
+  function center(f){var r=svg.getBoundingClientRect();zoomAt(r.left+r.width/2,r.top+r.height/2,f);}
+  var pts=new Map(),moved=0,pd=0,downT=null;
+  svg.addEventListener("pointerdown",function(e){svg.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pts.size===1){moved=0;downT={x:e.clientX,y:e.clientY};}
+    if(pts.size===2){var a=Array.from(pts.values());pd=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);moved=99;}});
+  svg.addEventListener("pointermove",function(e){if(!pts.has(e.pointerId)){if(opts.hover&&e.pointerType==="mouse")opts.hover(e);return;}
+    var prev=pts.get(e.pointerId),cur={x:e.clientX,y:e.clientY};pts.set(e.pointerId,cur);
+    if(pts.size===1){var r=svg.getBoundingClientRect();v.x-=(cur.x-prev.x)/r.width*v.w;v.y-=(cur.y-prev.y)/r.height*v.h;apply();moved+=Math.abs(cur.x-prev.x)+Math.abs(cur.y-prev.y);}
+    else if(pts.size===2){var a=Array.from(pts.values()),d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(pd>0&&d>0)zoomAt((a[0].x+a[1].x)/2,(a[0].y+a[1].y)/2,pd/d);pd=d;}
+    if(opts.hover)opts.hover(null);});
+  function up(e){if(!pts.has(e.pointerId))return;pts.delete(e.pointerId);if(pts.size===0&&moved<7&&downT&&opts.tap){var hit=null;document.elementsFromPoint(e.clientX,e.clientY).some(function(n){var g=n.closest&&n.closest("[data-tip]");if(g&&svg.contains(g)){hit=g;return true;}return false;});opts.tap(hit);}if(pts.size<2)pd=0;}
+  svg.addEventListener("pointerup",up);svg.addEventListener("pointercancel",function(e){pts.delete(e.pointerId);});
+  svg.addEventListener("pointerleave",function(){if(opts.hover)opts.hover(null);});
+  svg.addEventListener("wheel",function(e){e.preventDefault();zoomAt(e.clientX,e.clientY,Math.exp(e.deltaY*(e.ctrlKey?0.01:0.0016)));},{passive:false});
+  svg.addEventListener("dblclick",function(e){zoomAt(e.clientX,e.clientY,0.55);});
+  var ro=new ResizeObserver(function(){fit();});ro.observe(svg);
+  return {fit:fit,zin:function(){center(0.7);},zout:function(){center(1/0.7);},destroy:function(){ro.disconnect();}};
+}
+
+/* ---------- construction des dessins ---------- */
+var plan=document.getElementById("plan");buildPlan(plan);
+var tipEl=document.getElementById("tip"),cardP=document.getElementById("cardP"),selG=null;
+function clearSel(){if(selG)selG.classList.remove("sel");selG=null;}
+var pz=PanZoom(plan,{
+  tap:function(t){var g=t;clearSel();if(!g){showCard(cardP,null);return;}
+    var key=g.getAttribute("data-tip");plan.querySelectorAll('[data-tip="'+key+'"]').forEach(function(n){n.classList.add("sel");});selG={classList:{remove:function(){plan.querySelectorAll(".sel").forEach(function(n){n.classList.remove("sel");});}}};
+    showCard(cardP,key,clearSel);},
+  hover:function(e){if(!e){tipEl.style.display="none";return;}var g=e.target.closest&&e.target.closest("[data-tip]");if(!g){tipEl.style.display="none";return;}
+    var d=info(g.getAttribute("data-tip"));if(!d){tipEl.style.display="none";return;}tipEl.textContent=d.t+", "+d.rows[0][1];tipEl.style.display="block";tipEl.style.left=(e.clientX+14)+"px";tipEl.style.top=(e.clientY+14)+"px";}
+});
+document.getElementById("zin").onclick=pz.zin;document.getElementById("zout").onclick=pz.zout;document.getElementById("zfit").onclick=pz.fit;
+document.querySelectorAll("[data-layer]").forEach(function(inp){if(inp.tagName!=="INPUT")return;inp.addEventListener("change",function(){var g=plan.querySelector('g[data-layer="'+inp.dataset.layer+'"]');if(g)g.style.display=inp.checked?"":"none";});});
+
+var sheets=document.getElementById("sheets"),toc=document.getElementById("toc");
+function buildSheets(){sheets.innerHTML="";toc.innerHTML="";
+SHEETS.forEach(function(s){var f=document.createElement("figure");f.className="sheetc"+(s.wide?" wide":"");f.id=s.id;f.tabIndex=0;
+  var svg=document.createElementNS(NS,"svg");svg.setAttribute("class","pp");svg.setAttribute("role","img");svg.setAttribute("aria-label",L(s.t));f.appendChild(svg);s.f(svg);
+  var fc=document.createElement("figcaption");fc.innerHTML="<b>"+esc(L(s.t))+"</b><span>"+esc(L(s.s))+"</span>";f.appendChild(fc);sheets.appendChild(f);
+  f.addEventListener("click",function(){openLB(svg,L(s.t));});f.addEventListener("keydown",function(e){if(e.key==="Enter"){openLB(svg,L(s.t));}});
+  var b=document.createElement("button");b.innerHTML="<span>"+esc(L(s.t))+"</span><small>"+esc(L(s.s).split(",")[0])+"</small>";b.onclick=function(){setTab("elev");closeSheet();f.scrollIntoView({behavior:"smooth",block:"start"});};toc.appendChild(b);
+});}
+buildSheets();
+var lb=document.getElementById("lightbox"),lbz=null;
+function openLB(svg,title){var c=svg.cloneNode(true);c.removeAttribute("style");lb.querySelectorAll("svg.pp").forEach(function(n){n.remove();});lb.insertBefore(c,lb.firstChild);
+  document.getElementById("lbt").textContent=title;lb.classList.add("show");if(lbz)lbz.destroy();lbz=PanZoom(c,{});requestAnimationFrame(function(){lbz.fit();});}
+document.getElementById("lbx").onclick=function(){lb.classList.remove("show");if(lbz){lbz.destroy();lbz=null;}};
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(lb.classList.contains("show"))document.getElementById("lbx").click();closeSheet();}});
+
+/* ---------- onglets, panneau mobile, thème ---------- */
+var side=document.getElementById("side"),backdrop=document.getElementById("backdrop");
+function openSheet(){side.classList.add("open");backdrop.classList.add("show");}
+function closeSheet(){side.classList.remove("open");backdrop.classList.remove("show");}
+backdrop.onclick=closeSheet;document.getElementById("fab3").onclick=openSheet;document.getElementById("fabP").onclick=openSheet;
+var gy=null;document.getElementById("grab").addEventListener("pointerdown",function(e){gy=e.clientY;});
+window.addEventListener("pointerup",function(e){if(gy!=null&&e.clientY-gy>40)closeSheet();gy=null;});
+var tabs=Array.from(document.querySelectorAll(".tabs [data-tab]"));
+var VALID=["model","plan","elev","info"];
+function setTab(t,noHash){if(VALID.indexOf(t)<0)t="model";app.dataset.tab=t;tabs.forEach(function(b){b.setAttribute("aria-selected",b.dataset.tab===t?"true":"false");});
+  tipEl.style.display="none";if(t==="plan")requestAnimationFrame(pz.fit);if(t==="model"&&window.__r3)window.__r3();
+  if(!noHash)try{history.replaceState(null,"","#"+t);}catch(e){}}
+tabs.forEach(function(b){b.onclick=function(){setTab(b.dataset.tab);closeSheet();};});
+setTab((location.hash||"#model").slice(1),true);
+window.addEventListener("hashchange",function(){setTab(location.hash.slice(1),true);});
+document.getElementById("themeBtn").onclick=function(){var r=document.documentElement,cur=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  r.dataset.theme=cur==="dark"?"light":"dark";try{localStorage.setItem("hangar-theme",r.dataset.theme);}catch(e){}};
+try{var st=localStorage.getItem("hangar-theme");if(st)document.documentElement.dataset.theme=st;}catch(e){}
+
+
+/* ---------- fiche de données ---------- */
+function buildDoc(){var d=document.getElementById("doc");function tr(c){return "<tr>"+c.map(function(x,i){return x[0]==="#"?'<td class="n">'+esc(x.slice(1))+"</td>":x[0]==="!"?'<td><span class="badge">'+esc(L(x.slice(1)))+"</span></td>":x[0]==="*"?"<td><b>"+esc(L(x.slice(1)))+"</b></td>":"<td>"+esc(L(x))+"</td>";}).join("")+"</tr>";}
+  function tbl(h,rows){return '<div class="tw"><table class="tbl"><thead><tr>'+h.map(function(x){return "<th>"+esc(L(x))+"</th>";}).join("")+"</tr></thead><tbody>"+rows.map(tr).join("")+"</tbody></table></div>";}
+  d.innerHTML="<h2>Hangar 24 × 18 m</h2><p class=\"lead\">"+esc(L("Relevé de l’état actuel : murs porteurs en parpaings avec ossature en béton armé, pignons sur les façades de 18 m, dallage béton coulé et deux locaux adossés près de l’entrée. La toiture n’est pas encore posée."))+"</p>"+
+  '<div class="stats">'+[["432,0 m²","Surface construite"],["415,4 m²","Surface intérieure"],["392,8 m²","Surface libre du hangar"],["≈ 1 900 m³","Volume intérieur"]].map(function(x){return "<div><b>"+x[0]+"</b><span>"+esc(L(x[1]))+"</span></div>";}).join("")+"</div>"+
+  "<h3>"+esc(L("Dimensions générales"))+"</h3>"+tbl(["Élément","Valeur","Source"],[["Longueur hors tout","#24,00 m","!Fourni"],["Largeur hors tout","#18,00 m","!Fourni"],["Hauteur à l’égout","#4,00 m","!Fourni"],["Hauteur au faîtage (pignons)","#5,00 m","!Fourni"],["Pente des pignons","#11,1 %","Calculé"],["Épaisseur des murs","#0,20 m","Estimé"]])+
+  "<h3>"+esc(L("Ouvertures"))+"</h3>"+tbl(["Repère","Emplacement","Dimensions","Allège","Nombre"],[["*Entrée","Façade d’entrée, au centre","#5,00 × 3,50 m","#0,00 m","#1"],["*F1","Façade d’entrée","#1,30 × 0,60 m","#2,90 m","#2"],["*F2","Côté droit, partie arrière","#0,60 × 0,60 m","#3,10 m","#2"],["*F3","Local 2, face vers le hangar","#0,50 × 0,50 m","#1,20 m","#1"],["*F4","Local 2, face arrière","#0,80 × 0,80 m","#1,10 m","#1"],["*P1","Passage du local 1","#0,75 × 2,10 m","#0,00 m","#1"],["*P2","Porte du local 2","#0,90 × 2,10 m","#0,00 m","#1"]])+
+  "<h3>"+esc(L("Locaux"))+"</h3>"+tbl(["Local","Intérieur","Surface","Hauteur des murs"],[["*Local 1","#2,85 × 2,20 m","#6,3 m²","#2,80 m"],["*Local 2","#3,85 × 3,70 m","#14,2 m²","#2,80 m"]])+
+  "<h3>"+esc(L("Précision du relevé"))+"</h3><p>"+esc(L("P_PREC1"))+"</p><p>"+esc(L("P_PREC2"))+"</p>";}
+buildDoc();
+
+/* ---------- styles de plan ---------- */
+var STYLES=[{id:"auto",n:"Automatique",d:"Suit le thème"},{id:"technique",n:"Technique",d:"Noir sur blanc",c:["#FFFFFF","#141414","#FFFFFF","#B3261E"]},
+  {id:"blueprint",n:"Blueprint",d:"Bleu d’architecte",c:["#0E3150","#EAF3FA","#123A5C","#F2BC74"]},{id:"presentation",n:"Présentation",d:"Murs pleins et ombres",c:["#E9E5DF","#6E6154","#F8F6F2","#8A7B6B"]},
+  {id:"esquisse",n:"Esquisse",d:"Dessiné à la main",c:["#F5EFE2","#34322E","#F5EFE2","#86603A"]},{id:"minimal",n:"Minimal",d:"Épuré",c:["#FFFFFF","#1A1A1A","#FFFFFF","#A0A0A0"]}];
+var PS="auto";try{PS=localStorage.getItem("hangar-ps")||"auto";}catch(e){}
+function prev(c,half){var s='<svg viewBox="0 0 120 72" aria-hidden="true">';
+  if(!c){s+='<rect width="60" height="72" fill="#FBFCFC"/><rect x="60" width="60" height="72" fill="#0E3150"/><rect x="14" y="12" width="92" height="48" fill="none" stroke="#11263A" stroke-width="4"/><path d="M60 12h46v48H60" fill="none" stroke="#EAF3FA" stroke-width="4"/><path d="M14 30h26v30" fill="none" stroke="#11263A" stroke-width="2.5"/>';return s+"</svg>";}
+  var sh=half==="presentation"?'<rect x="17" y="15" width="92" height="48" fill="none" stroke="rgba(40,30,20,.25)" stroke-width="7"/>':"";
+  s+='<rect width="120" height="72" fill="'+c[0]+'"/>'+sh+'<rect x="14" y="12" width="92" height="48" fill="'+c[2]+'" stroke="'+c[1]+'" stroke-width="'+(half==="minimal"||half==="presentation"?5:4)+'"/>'+'<path d="M14 32h28v28" fill="none" stroke="'+c[1]+'" stroke-width="2.5"/><rect x="60" y="10" width="16" height="4" fill="'+c[0]+'" stroke="'+c[1]+'" stroke-width="1"/>'+
+    '<path d="M14 6h92M14 3v6M106 3v6" stroke="'+c[3]+'" stroke-width="1.2"/><path d="M50 46h40" stroke="'+c[3]+'" stroke-width="1" stroke-dasharray="3 2"/>';
+  if(half==="esquisse")s=s.replace(/stroke-width="4"/,'stroke-width="3.4" stroke-linejoin="round" stroke-dasharray="40 1 30 2"');
+  return s+"</svg>";}
+function buildPickers(){document.querySelectorAll("[data-picker]").forEach(function(box){box.innerHTML="";STYLES.forEach(function(st){var b=document.createElement("button");b.className="psc";b.dataset.ps=st.id;b.setAttribute("aria-pressed",st.id===PS?"true":"false");
+  b.innerHTML=prev(st.c,st.id)+"<b>"+esc(L(st.n))+"</b><small>"+esc(L(st.d))+"</small>";b.onclick=function(){setPS(st.id);};box.appendChild(b);});});}
+function setPS(id){PS=id;if(id==="auto")delete document.documentElement.dataset.ps;else document.documentElement.dataset.ps=id;try{localStorage.setItem("hangar-ps",id);}catch(e){}
+  document.querySelectorAll(".psc").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.ps===id?"true":"false");});}
+buildPickers();setPS(PS);
+document.getElementById("fabE").onclick=openSheet;
+
+/* ---------- langue ---------- */
+function applyStatic(){document.querySelectorAll("[data-t]").forEach(function(e){if(e.dataset.fr==null)e.dataset.fr=e.textContent;e.textContent=L(e.dataset.fr);});}
+function setLang(l,first){LANG=l==="wo"?"wo":"fr";try{localStorage.setItem("hangar-lang",LANG);}catch(e){}document.documentElement.lang=LANG;
+  document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.l===LANG?"true":"false");});
+  applyStatic();if(first)return;
+  while(plan.firstChild)plan.removeChild(plan.firstChild);buildPlan(plan);document.querySelectorAll("input[data-layer]").forEach(function(inp){var g=plan.querySelector('g[data-layer="'+inp.dataset.layer+'"]');if(g)g.style.display=inp.checked?"":"none";});
+  pz.fit();showCard(cardP,null);buildSheets();buildDoc();buildPickers();if(window.__lang3d)window.__lang3d();}
+document.querySelectorAll(".lang button").forEach(function(b){b.onclick=function(){setLang(b.dataset.l);};});
+setLang(LANG,true);
+
+/* ---------- MAQUETTE 3D ---------- */
+var host=document.getElementById("v-model"),loader=document.getElementById("loader");
+function fail(){loader.classList.add("off");document.getElementById("err3").style.display="grid";}
+if(!window.THREE||!THREE.OrbitControls||!THREE.CSS2DRenderer){fail();return;}
+var canvas=document.getElementById("c3d"),renderer;
+try{renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,preserveDrawingBuffer:true});}catch(e){fail();return;}
+var mobile=matchMedia("(max-width: 899px), (pointer: coarse)").matches;
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,mobile?1.75:2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+renderer.localClippingEnabled=true;
+var labelR=new THREE.CSS2DRenderer();var lab=document.getElementById("labels");lab.appendChild(labelR.domElement);
+labelR.domElement.style.position="absolute";labelR.domElement.style.inset="0";labelR.domElement.style.pointerEvents="none";
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(40,1,0.1,900);
+var controls=new THREE.OrbitControls(camera,canvas);
+controls.enableDamping=true;controls.dampingFactor=0.075;controls.maxPolarAngle=Math.PI*0.492;controls.minDistance=2.5;controls.maxDistance=140;
+controls.autoRotateSpeed=0.7;controls.screenSpacePanning=true;controls.zoomSpeed=0.9;
+
+/* textures procédurales */
+function rnd(a){var s=a||1;return function(){s=(s*16807)%2147483647;return (s-1)/2147483646;};}
+function canvasTex(w,h,draw,rep){var c=document.createElement("canvas");c.width=w;c.height=h;var x=c.getContext("2d");draw(x,w,h);var t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;
+  t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());if(rep){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rep[0],rep[1]);}return t;}
+function noise(x,w,h,amp,seed){var r=rnd(seed),img=x.getImageData(0,0,w,h),d=img.data;for(var i=0;i<d.length;i+=4){var n=(r()-0.5)*amp;d[i]+=n;d[i+1]+=n;d[i+2]+=n;}x.putImageData(img,0,0);}
+function blot(x,cx,cy,rx,ry,col,a){var g=x.createRadialGradient(cx,cy,0,cx,cy,Math.max(rx,ry));g.addColorStop(0,"rgba("+col+","+a+")");g.addColorStop(1,"rgba("+col+",0)");x.save();x.translate(cx,cy);x.scale(1,ry/rx);x.translate(-cx,-cy);x.fillStyle=g;x.beginPath();x.arc(cx,cy,rx,0,7);x.fill();x.restore();}
+var R1=rnd(7);
+var texRender=canvasTex(512,512,function(x,w,h){x.fillStyle="#D3BD94";x.fillRect(0,0,w,h);for(var i=0;i<40;i++)blot(x,R1()*w,R1()*h,20+R1()*90,20+R1()*70,R1()<0.6?"120,96,60":"240,228,200",0.12);
+  for(var j=0;j<18;j++){x.strokeStyle="rgba(110,88,58,0.08)";x.lineWidth=2+R1()*5;var sx=R1()*w;x.beginPath();x.moveTo(sx,0);x.lineTo(sx+(R1()-0.5)*20,h);x.stroke();}noise(x,w,h,16,3);},[0.25,0.25]);
+var texBlock=canvasTex(512,256,function(x,w,h){x.fillStyle="#7E7666";x.fillRect(0,0,w,h);var r=rnd(11);
+  for(var row=0;row<4;row++)for(var col=-1;col<5;col++){var bx=col*128+(row%2?64:0),v=146+Math.floor(r()*26);x.fillStyle="rgb("+(v+12)+","+(v+4)+","+(v-14)+")";x.fillRect(bx+4,row*64+4,120,56);
+    for(var k=0;k<6;k++){x.fillStyle="rgba(60,52,40,"+(0.08+r()*0.1)+")";x.fillRect(bx+8+r()*104,row*64+8+r()*44,2+r()*5,2+r()*4);}}noise(x,w,h,18,5);},[1/1.6,1/0.8]);
+var texGround=canvasTex(512,512,function(x,w,h){x.fillStyle="#B98E5C";x.fillRect(0,0,w,h);var r=rnd(17);for(var i=0;i<60;i++)blot(x,r()*w,r()*h,20+r()*80,20+r()*60,r()<0.5?"120,80,44":"214,180,130",0.18);
+  for(var j=0;j<900;j++){x.fillStyle="rgba("+(r()<0.5?"70,52,34":"230,214,186")+","+(0.25+r()*0.4)+")";x.beginPath();x.arc(r()*w,r()*h,0.6+r()*2.2,0,7);x.fill();}noise(x,w,h,26,9);},[34,34]);
+var SL=50;
+var texSlab=canvasTex(17.6*SL,23.6*SL,function(x,w,h){x.fillStyle="#CFC9BC";x.fillRect(0,0,w,h);var r=rnd(23);
+  for(var i=0;i<70;i++)blot(x,r()*w,r()*h,30+r()*120,30+r()*100,r()<0.5?"150,142,128":"236,232,224",0.16);
+  function P(xm,zm){return [(xm-0.2)*SL,(23.8-zm)*SL];}
+  [[9,14.4,3.2,1.5,0.5],[8.6,6,2.4,1.1,0.42],[15.5,4.2,1.6,1,0.38],[12,9.5,1.4,0.8,0.25]].forEach(function(s){var p=P(s[0],s[1]);for(var k=0;k<9;k++)blot(x,p[0]+(r()-0.5)*s[2]*SL,p[1]+(r()-0.5)*s[3]*SL,(0.4+r()*0.7)*s[2]*SL*0.6,(0.4+r()*0.7)*s[3]*SL*0.6,"122,92,56",s[4]*0.55);});
+  x.strokeStyle="rgba(250,250,246,0.45)";for(var e=0;e<70;e++){var a=P(1+r()*16,0.3+r()*9);x.lineWidth=1+r()*2.5;x.beginPath();x.moveTo(a[0],a[1]);x.quadraticCurveTo(a[0]+(r()-0.5)*90,a[1]+(r()-0.5)*40,a[0]+(r()-0.5)*160,a[1]+(r()-0.5)*30);x.stroke();}
+  x.strokeStyle="rgba(84,76,64,0.55)";x.lineWidth=2.2;for(var gx=3;gx<18;gx+=3){var q=P(gx,0);x.beginPath();x.moveTo(q[0],0);x.lineTo(q[0],h);x.stroke();}
+  for(var gz=3;gz<24;gz+=3){var q2=P(0,gz);x.beginPath();x.moveTo(0,q2[1]);x.lineTo(w,q2[1]);x.stroke();}
+  x.strokeStyle="rgba(84,76,64,0.35)";x.lineWidth=1;for(var c=0;c<26;c++){var s0=[r()*w,r()*h];x.beginPath();x.moveTo(s0[0],s0[1]);for(var m=0;m<5;m++){s0[0]+=(r()-0.5)*70;s0[1]+=(r()-0.5)*70;x.lineTo(s0[0],s0[1]);}x.stroke();}
+  noise(x,w,h,14,4);});
+
+function M(o){return new THREE.MeshStandardMaterial(Object.assign({roughness:0.93,metalness:0},o));}
+var clipPlane=new THREE.Plane(new THREE.Vector3(0,-1,0),99);
+var mat={
+  render:M({map:texRender,side:THREE.DoubleSide,clippingPlanes:[clipPlane],clipShadows:true}),
+  roomr:M({map:texRender,color:0xF6EEDF,side:THREE.DoubleSide,clippingPlanes:[clipPlane],clipShadows:true}),
+  frame:M({color:0xB9AA8E,map:texRender,side:THREE.DoubleSide,clippingPlanes:[clipPlane],clipShadows:true}),
+  block:M({map:texBlock,clippingPlanes:[clipPlane]}),
+  slab:M({map:texSlab,color:0xC9C3B8,roughness:0.82}),slabSide:M({color:0xB8B1A3}),
+  ground:M({map:texGround,roughness:1}),apron:M({color:0xC6BFB0,map:texRender,roughness:0.9}),
+  steel:new THREE.MeshStandardMaterial({color:0x5B3F2E,roughness:0.6,metalness:0.4,clippingPlanes:[clipPlane]}),
+  fig:M({color:0x2E5378,roughness:0.6}),skin:M({color:0x9C7259,roughness:0.7}),
+  red:M({color:0xB3261E,roughness:0.5,metalness:0.2}),grey:M({color:0x5B6066,roughness:0.6,metalness:0.3}),gravel:M({color:0x4A4743,roughness:1}),rubble:M({color:0x6D6354,roughness:1}),pallet:M({color:0x9B7A50})
+};
+var white={wall:M({color:0xF4F2EC,side:THREE.DoubleSide,clippingPlanes:[clipPlane],clipShadows:true}),floor:M({color:0xE9E7E1}),ground:M({color:0xDADDDF}),other:M({color:0xD8D9DA})};
+var edgeMat=new THREE.LineBasicMaterial({color:0x1D2A33,transparent:true,opacity:0.32,clippingPlanes:[clipPlane]});
+var root=new THREE.Group();scene.add(root);
+var edgeObjs=[],styled=[];
+function add(m,g,o){o=o||{};m.castShadow=o.cast!==false;m.receiveShadow=true;(g||root).add(m);m.userData.real=m.material;m.userData.w=o.w||"wall";styled.push(m);
+  if(o.edges!==false){var e=new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry,28),edgeMat);m.add(e);edgeObjs.push(e);}return m;}
+function box(x0,x1,y0,y1,z0,z1,m,g,o){var me=new THREE.Mesh(new THREE.BoxGeometry(x1-x0,y1-y0,z1-z0),m);me.position.set((x0+x1)/2,(y0+y1)/2,-(z0+z1)/2);return add(me,g,o);}
+function shapeFrom(p,holes){var s=new THREE.Shape();p.forEach(function(q,i){if(i)s.lineTo(q[0],q[1]);else s.moveTo(q[0],q[1]);});
+  (holes||[]).forEach(function(h){var pa=new THREE.Path();pa.moveTo(h[0],h[1]);pa.lineTo(h[0],h[3]);pa.lineTo(h[2],h[3]);pa.lineTo(h[2],h[1]);pa.lineTo(h[0],h[1]);s.holes.push(pa);});return s;}
+var EXT={depth:0.2,bevelEnabled:false};
+
+/* façade d'entrée */
+var frontG=new THREE.Group();root.add(frontG);
+var sShape=shapeFrom([[0,0],[6.5,0],[6.5,3.5],[11.5,3.5],[11.5,0],[18,0],[18,4],[9,5],[0,4]],[[3.85,2.9,5.15,3.5],[12.85,2.9,14.15,3.5]]);
+var sw=new THREE.Mesh(new THREE.ExtrudeGeometry(sShape,EXT),mat.render);sw.position.z=-0.2;add(sw,frontG);
+var ov=new THREE.Mesh(new THREE.ShapeGeometry(sShape),mat.block);ov.position.z=0.006;add(ov,frontG,{cast:false,edges:false});
+[[0,0.3],[6.2,6.5],[11.5,11.8],[17.7,18]].forEach(function(c){box(c[0],c[1],0,Math.min(yTop(c[0]),yTop(c[1]))-0.02,-0.06,0.3,mat.frame,frontG);});
+box(6.2,11.8,3.5,3.86,-0.06,0.25,mat.frame,frontG);
+[[4.5,1],[13.5,-1]].forEach(function(b){var m=new THREE.Mesh(new THREE.BoxGeometry(Math.sqrt(82),0.3,0.08),mat.frame);m.position.set(b[0],4.5-0.15,0.03);m.rotation.z=b[1]*Math.atan(1/9);add(m,frontG);});
+/* façade arrière */
+var nw=new THREE.Mesh(new THREE.ExtrudeGeometry(shapeFrom([[0,0],[18,0],[18,4],[9,5],[0,4]]),EXT),mat.render);nw.position.z=-24;add(nw);
+box(5.05,5.35,0,yTop(5.35)-0.02,23.65,23.8,mat.frame);box(12.65,12.95,0,yTop(12.65)-0.02,23.65,23.8,mat.frame);
+box(0,0.3,0,3.98,23.7,24.02,mat.frame);box(17.7,18,0,3.98,23.7,24.02,mat.frame);
+/* côtés */
+var sideShape=function(h){return shapeFrom([[0.2,0],[23.8,0],[23.8,4],[0.2,4]],h);};
+var ww=new THREE.Mesh(new THREE.ExtrudeGeometry(sideShape(),EXT),mat.render);ww.rotation.y=Math.PI/2;ww.position.x=0;add(ww);
+var ew=new THREE.Mesh(new THREE.ExtrudeGeometry(sideShape([[12.2,3.1,12.8,3.7],[18.2,3.1,18.8,3.7]]),EXT),mat.render);ew.rotation.y=Math.PI/2;ew.position.x=17.8;add(ew);
+[6,12,18].forEach(function(z){box(0.2,0.35,0,3.98,z-0.15,z+0.15,mat.frame);box(17.65,17.8,0,3.98,z-0.15,z+0.15,mat.frame);});
+/* aciers en attente */
+var stG=new THREE.Group();root.add(stG);var bar=new THREE.CylinderGeometry(0.012,0.012,0.42,5);
+function bars(x,y,z){[[-0.07,-0.07],[0.07,-0.07],[-0.07,0.07],[0.07,0.07]].forEach(function(o){var m=new THREE.Mesh(bar,mat.steel);m.position.set(x+o[0],y+0.2,-(z)+o[1]);m.rotation.z=o[0]*0.4;m.castShadow=true;stG.add(m);m.userData.real=m.material;m.userData.w="other";styled.push(m);});}
+[[0.15,4,0.12],[17.85,4,0.12],[6.35,yTop(6.35),0.12],[11.65,yTop(11.65),0.12],[0.15,4,23.85],[17.85,4,23.85],[5.2,yTop(5.2),23.75],[12.8,yTop(12.8),23.75]].forEach(function(p){bars(p[0],p[1],p[2]);});
+[6,12,18].forEach(function(z){bars(0.2,4,z);bars(17.8,4,z);});
+/* locaux */
+var H=2.8,rm=mat.roomr;
+box(3.05,3.2,0,H,0.2,1.55,rm);box(3.05,3.2,2.1,H,1.55,2.3,rm);box(3.05,3.2,0,H,2.3,2.4,rm);
+box(0.2,4.2,0,H,2.4,2.55,rm);
+box(4.05,4.2,0,H,2.55,2.75,rm);box(4.05,4.2,2.1,H,2.75,3.65,rm);box(4.05,4.2,0,H,3.65,4.9,rm);
+box(4.05,4.2,0,1.2,4.9,5.4,rm);box(4.05,4.2,1.7,H,4.9,5.4,rm);box(4.05,4.2,0,H,5.4,6.4,rm);
+box(0.2,1.75,0,H,6.25,6.4,rm);box(1.75,2.55,0,1.1,6.25,6.4,rm);box(1.75,2.55,1.9,H,6.25,6.4,rm);box(2.55,4.05,0,H,6.25,6.4,rm);
+/* sol */
+var slabBase=box(0,18,-0.16,-0.005,0,24,mat.slabSide,root,{cast:false,w:"floor"});
+var slabTop=new THREE.Mesh(new THREE.PlaneGeometry(17.6,23.6),mat.slab);slabTop.rotation.x=-Math.PI/2;slabTop.position.set(9,0.002,-12);add(slabTop,root,{cast:false,edges:false,w:"floor"});
+var apronTop=box(4.6,13.4,-0.14,-0.01,-3.2,0,mat.apron,root,{cast:false,w:"floor"});
+var gr=new THREE.Mesh(new THREE.CircleGeometry(170,64),mat.ground);gr.rotation.x=-Math.PI/2;gr.position.set(9,-0.03,-12);add(gr,scene,{cast:false,edges:false,w:"ground"});
+/* abords */
+var site=new THREE.Group();root.add(site);
+function cyl(r,h,m,x,z,g){var c=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,24),m);c.position.set(x,h/2,-z);return add(c,g||site,{w:"other",edges:false});}
+cyl(0.29,0.88,mat.red,5.2,-1.9);cyl(0.29,0.88,mat.grey,4.4,-2.6);
+var pile=new THREE.Mesh(new THREE.ConeGeometry(1.7,0.75,28,1),mat.gravel);pile.position.set(-2.6,0.37,-3);pile.scale.set(1,1,0.75);add(pile,site,{w:"other",edges:false});
+var rub=new THREE.Mesh(new THREE.DodecahedronGeometry(0.9,0),mat.rubble);rub.position.set(7.6,0.05,1.9);rub.scale.set(1.3,0.35,0.9);add(rub,site,{w:"other",edges:false});
+var pal=box(13.6,14.8,0,0.14,-2.6,-1.6,mat.pallet,site,{w:"other"});
+for(var py=0;py<3;py++)for(var px=0;px<3;px++)box(13.62+px*0.4,13.98+px*0.4,0.14+py*0.2,0.33+py*0.2,-2.55,-1.65,mat.frame,site,{w:"other"});
+/* silhouette */
+var fig=new THREE.Group();
+var legs=new THREE.Mesh(new THREE.CylinderGeometry(0.15,0.12,0.86,14),mat.fig);legs.position.y=0.43;add(legs,fig,{w:"other",edges:false});
+var torso=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.16,0.62,14),mat.fig);torso.position.y=1.17;add(torso,fig,{w:"other",edges:false});
+var head=new THREE.Mesh(new THREE.SphereGeometry(0.115,18,14),mat.skin);head.position.y=1.63;add(head,fig,{w:"other",edges:false});
+fig.position.set(10.3,0,-4.2);fig.rotation.y=0.6;root.add(fig);
+
+/* ciel et lumière */
+var sky=canvasTex(4,512,function(x,w,h){var g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,"#5E8FBF");g.addColorStop(0.55,"#A9C7DE");g.addColorStop(0.82,"#E4E9E6");g.addColorStop(1,"#EDE3D2");x.fillStyle=g;x.fillRect(0,0,w,h);});
+scene.background=sky;scene.fog=new THREE.Fog(0xE2E5E0,90,260);
+var hemi=new THREE.HemisphereLight(0xDCE8F2,0xA98657,0.7);scene.add(hemi);
+var sun=new THREE.DirectionalLight(0xFFF1DC,1.6);sun.castShadow=true;sun.shadow.mapSize.set(mobile?1536:3072,mobile?1536:3072);
+var sc=sun.shadow.camera;sc.left=-30;sc.right=30;sc.top=30;sc.bottom=-30;sc.near=1;sc.far=200;sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.025;sun.shadow.radius=3;
+scene.add(sun);scene.add(sun.target);sun.target.position.set(9,0,-12);
+var cWarm=new THREE.Color(0xFFB067),cDay=new THREE.Color(0xFFF4E2);
+function setSun(h){var t=(h-6)/14,el2=Math.sin(Math.PI*t)*1.08+0.07,az=-1.9+t*3.8,R=95;
+  sun.position.set(9+Math.cos(el2)*Math.sin(az)*R,Math.sin(el2)*R,-12+Math.cos(el2)*Math.cos(az)*R);
+  var k=Math.min(1,Math.sin(el2)*1.6);sun.color.copy(cWarm).lerp(cDay,k);sun.intensity=0.75+0.8*k;hemi.intensity=0.36+0.2*k;
+  renderer.toneMappingExposure=0.84+0.04*k;
+  var hh=Math.floor(h),mm=Math.round((h-hh)*60);document.getElementById("sunO").textContent=hh+" h "+(mm<10?"0":"")+mm;}
+
+/* repères et cotes */
+var pinsG=new THREE.Group(),dimsG=new THREE.Group();scene.add(pinsG);scene.add(dimsG);
+var card3=document.getElementById("card3"),activePin=null;
+var PINS=[["entree",9,1.9,0.1],["local1",1.7,3.2,1.3],["local2",2.2,3.2,4.4],["f1",4.5,3.95,0],["f2",18.05,3.95,12.5],["pignon",9,5.3,24],["dallage",12.5,0.25,14],["aciers",17.8,4.5,18]];
+var pinEls=[];PINS.forEach(function(p){var b=document.createElement("button");b.className="pin";pinEls.push([b,p[0]]);b.innerHTML="<i>"+INFO[p[0]].k+"</i><span>"+esc(info(p[0]).t)+"</span>";b.setAttribute("aria-label",info(p[0]).t);
+  b.addEventListener("pointerdown",function(e){e.stopPropagation();});
+  b.onclick=function(){if(activePin)activePin.classList.remove("on");activePin=b;b.classList.add("on");showCard(card3,p[0],function(){b.classList.remove("on");activePin=null;});};
+  var o=new THREE.CSS2DObject(b);o.position.set(p[1],p[2],-p[3]);pinsG.add(o);});
+var dimMat=new THREE.LineBasicMaterial({color:0xC27A2C});
+function dim3(a,b,lab,tick){var A=new THREE.Vector3().fromArray(a),B=new THREE.Vector3().fromArray(b),T=new THREE.Vector3().fromArray(tick);
+  var pos=[A.x,A.y,A.z,B.x,B.y,B.z];[A,B].forEach(function(P){pos.push(P.x-T.x,P.y-T.y,P.z-T.z,P.x+T.x,P.y+T.y,P.z+T.z);});
+  var g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));dimsG.add(new THREE.LineSegments(g,dimMat));
+  var d=document.createElement("div");d.className="dlabel";d.textContent=lab;var o=new THREE.CSS2DObject(d);o.position.copy(A).add(B).multiplyScalar(0.5);dimsG.add(o);}
+dim3([0,0.03,1.6],[18,0.03,1.6],"18,00 m",[0,0,0.25]);dim3([19.6,0.03,0],[19.6,0.03,-24],"24,00 m",[0.25,0,0]);
+dim3([18.7,0,0.7],[18.7,4,0.7],"4,00 m",[0.2,0,0]);dim3([9,0,-25.2],[9,5,-25.2],"5,00 m",[0.2,0,0]);dim3([6.5,3.62,0.5],[11.5,3.62,0.5],"5,00 m",[0,0.15,0]);
+function vis(g,v){g.traverse(function(o){o.visible=v;});}
+vis(dimsG,false);
+
+/* vues */
+var V={exterieur:{p:[-13,13.5,16],t:[9,1.4,-11]},entree:{p:[9,2.3,21],t:[9,2.4,-6]},arriere:{p:[27,9,-44],t:[9,1.6,-12]},
+  dessus:{p:[9,47,-11.98],t:[9,0,-12]},interieur:{p:[14.2,1.7,-21.5],t:[6,1.7,-2]},locaux:{p:[9.8,2.7,-10.5],t:[2.2,1.2,-3.1]}};
+var NAMES={exterieur:"Perspective",entree:"Entrée",arriere:"Arrière",dessus:"Dessus",interieur:"Intérieur",locaux:"Locaux"};
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches,anim=null;
+var vbtns=Array.from(document.querySelectorAll("#vgrid .vbtn"));var chips=document.getElementById("chips");
+Object.keys(V).forEach(function(k){var c=document.createElement("button");c.className="chip";c.dataset.v=k;c.textContent=L(NAMES[k]);c.setAttribute("aria-pressed",k==="exterieur"?"true":"false");chips.appendChild(c);});
+var allV=vbtns.concat(Array.from(chips.children));
+function go(n,inst){var v=V[n];allV.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.v===n?"true":"false");});
+  var tp=new THREE.Vector3().fromArray(v.p),tt=new THREE.Vector3().fromArray(v.t);
+  if(camera.aspect<0.95&&n!=="interieur"&&n!=="locaux")tp.sub(tt).multiplyScalar(n==="dessus"?1.4:1.28).add(tt);
+  if(inst||reduce){camera.position.copy(tp);controls.target.copy(tt);controls.update();anim=null;return;}
+  anim={t0:performance.now(),d:1200,fp:camera.position.clone(),ft:controls.target.clone(),tp:tp,tt:tt};}
+allV.forEach(function(b){b.addEventListener("click",function(){go(b.dataset.v);if(b.classList.contains("vbtn"))closeSheet();});});
+controls.addEventListener("start",function(){anim=null;document.getElementById("hud").style.opacity="0";});
+
+/* réglages */
+function bind(id,f){document.getElementById(id).addEventListener("change",function(e){f(e.target.checked);});}
+bind("tPins",function(v){vis(pinsG,v);if(!v){showCard(card3,null);}});bind("tDims",function(v){vis(dimsG,v);});
+bind("tEdges",function(v){edgeObjs.forEach(function(e){e.visible=v;});});bind("tFront",function(v){frontG.visible=v;});
+bind("tSite",function(v){site.visible=v;});bind("tFig",function(v){fig.visible=v;});bind("tRot",function(v){controls.autoRotate=v;});
+var sunIn=document.getElementById("sun");sunIn.addEventListener("input",function(){setSun(+sunIn.value);});setSun(+sunIn.value);
+var cutIn=document.getElementById("cut");cutIn.addEventListener("input",function(){var h=+cutIn.value;clipPlane.constant=h>=5.15?99:h;
+  document.getElementById("cutO").textContent=h>=5.15?L("aucune"):f2(h)+" m";});
+var styleBtns=Array.from(document.querySelectorAll("#style button"));
+styleBtns.forEach(function(b){b.onclick=function(){var w=b.dataset.s==="white";styleBtns.forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
+  styled.forEach(function(m){m.material=w?white[m.userData.w]:m.userData.real;});
+  scene.background=w?new THREE.Color(0xEEF0F1):sky;scene.fog.color.set(w?0xEEF0F1:0xE2E5E0);edgeMat.opacity=w?0.55:0.32;};});
+document.getElementById("shot").onclick=function(){renderer.render(scene,camera);var a=document.createElement("a");a.download="hangar-24x18.png";a.href=canvas.toDataURL("image/png");document.body.appendChild(a);a.click();a.remove();};
+
+/* boussole */
+var cmp=document.getElementById("cmpN");
+function resize(){var w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);labelR.setSize(w,h);camera.aspect=w/h;camera.fov=w<h?52:40;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(host);resize();window.__r3=resize;
+go("exterieur",true);
+var tmp=new THREE.Vector3(),first=true;
+function loop(now){requestAnimationFrame(loop);if(app.dataset.tab!=="model")return;
+  if(anim){var k=Math.min(1,(now-anim.t0)/anim.d),e=k<0.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;camera.position.lerpVectors(anim.fp,anim.tp,e);controls.target.lerpVectors(anim.ft,anim.tt,e);if(k>=1)anim=null;}
+  controls.update();renderer.render(scene,camera);labelR.render(scene,camera);
+  tmp.subVectors(camera.position,controls.target);var ang=Math.atan2(tmp.x,tmp.z);cmp.setAttribute("transform","rotate("+(ang*180/Math.PI+180)+" 31 31)");
+  if(first){first=false;setTimeout(function(){loader.classList.add("off");},250);}}
+requestAnimationFrame(loop);
+window.__lang3d=function(){pinEls.forEach(function(x){x[0].querySelector("span").textContent=info(x[1]).t;x[0].setAttribute("aria-label",info(x[1]).t);});Array.from(chips.children).forEach(function(c){c.textContent=L(NAMES[c.dataset.v]);});showCard(card3,null);if(activePin){activePin.classList.remove("on");activePin=null;}
+  var h=+cutIn.value;document.getElementById("cutO").textContent=h>=5.15?L("aucune"):f2(h)+" m";};
+})();
+</script>
+<script>if("serviceWorker" in navigator&&location.protocol==="https:"&&!/claude|anthropic/.test(location.hostname)){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
+</body>
+</html>
