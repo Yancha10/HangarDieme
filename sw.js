@@ -1,4 +1,4 @@
-const CACHE="hangar-v18";
+const CACHE="hangar-v19";
 const LIBS=["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
  "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js",
  "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS2DRenderer.js"];
